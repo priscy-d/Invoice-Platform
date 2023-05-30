@@ -32,7 +32,7 @@ function Sidebar() {
             <Link to="items" className="nav-items mx-2 ">
               <BsArchive /> <p className="mx-2 text">Products</p>
             </Link>
-            <Link to="items" className="nav-items mx-2 ">
+            <Link to="customers" className="nav-items mx-2 ">
               <BsFillPersonPlusFill /> <p className="mx-2 text">Customers</p>
             </Link>
           </Stack>

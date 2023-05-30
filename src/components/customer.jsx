@@ -1,27 +1,25 @@
 import React from "react";
-import { Button, Col, Container, Row, Table, Form, Nav } from "react-bootstrap";
+import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const Invoices = () => {
+const Customers = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/create-invoice");
+    navigate("/create-customer");
   };
-
   return (
     <Container className="mt-5">
-      <Row className="mb-2">
+      <Row>
         <Col md={10}>
-          <h2>Invoices</h2>
+          <h2>Customers</h2>
         </Col>
         <Col md={2} ClassName="d-flex flex-row-reverse">
           <Button variant="success" onClick={handleSubmit}>
-            New Invoice
+            New customer
           </Button>
         </Col>
       </Row>
-
       <Row className="mx-5 my-3">
         <Col>
           <h2 className="summary-text">¢2400</h2>
@@ -31,20 +29,7 @@ const Invoices = () => {
           <h2 className="summary-text">¢2400</h2>
           <p>debited</p>
         </Col>
-        <Col>
-          <h2 className="summary-text">¢0</h2>
-          <p>draft</p>
-        </Col>
       </Row>
-      <Nav className="me-auto">
-        <Nav.Link className="linked" href="#">
-          Invoices
-        </Nav.Link>
-        <Nav.Link className="linked" href="#">
-          Recurring templates
-        </Nav.Link>
-      </Nav>
-
       <Form.Control
         type="text"
         placeholder="search"
@@ -52,18 +37,28 @@ const Invoices = () => {
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
-            <th>Due date</th>
-            <th>Status</th>
-            <th>Customer</th>
-            <th>Amount</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Account info</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>18 May 2023</td>
-            <td>Sent</td>
-            <td>Cobby</td>
-            <td>¢2400</td>
+            <td>Divine Eteba</td>
+            <td>divineeteba@gmail.com</td>
+            <td>Accra, Ghana</td>
+            <td>
+              <p>debit:¢1000</p> <p>credit:¢1000</p>
+            </td>
+          </tr>
+          <tr>
+            <td>Divine Eteba</td>
+            <td>divineeteba@gmail.com</td>
+            <td>Accra, Ghana</td>
+            <td>
+              <p>debit:¢1000</p> <p>credit:¢1000</p>
+            </td>
           </tr>
         </tbody>
       </Table>
@@ -71,4 +66,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default Customers;

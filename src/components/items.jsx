@@ -1,7 +1,13 @@
 import React from "react";
 import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Items = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate("/create-product");
+  };
   return (
     <Container className="mt-5">
       <Row>
@@ -9,7 +15,9 @@ const Items = () => {
           <h2>Product</h2>
         </Col>
         <Col md={2} ClassName="d-flex flex-row-reverse">
-          <Button variant="success">New product</Button>
+          <Button variant="success" onClick={handleSubmit}>
+            New product
+          </Button>
         </Col>
       </Row>
       <Form.Control
