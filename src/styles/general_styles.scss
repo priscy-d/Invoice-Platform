@@ -24,7 +24,7 @@ $font_sizes: (
 
 body {
   font-family: "Raleway", sans-serif;
-  margin: 0;
+  padding: 0;
   background-color: $light_background;
 }
 h1 {
@@ -35,11 +35,13 @@ h1 {
   background-color: $background_color;
   margin: 0;
   height: 100vh;
+ 
 }
 .mini-section {
   background-color: $dark_background;
   height: 100vh;
   color: $dark;
+
 }
 .icon {
   font-size: 1.5em;
@@ -50,9 +52,16 @@ h1 {
 .nav-items {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
   text-decoration: none;
   color: $dark;
+  vertical-align: middle;
+}
+
+.nav-items:hover {
+  color:$dark;
+}
+.nav-items:active {
+  font-weight: map-get($map: $font_weights, $key:bold );
 }
 .text {
   font-size: map-get($map: $font_sizes, $key: normal_text);
@@ -68,4 +77,12 @@ h1 {
 }
 .linked{
   color: $muted_text;
+}
+.main p{
+  font-size: map-get($map: $font_sizes, $key:normal_text );
+}
+.date{
+  
+  background: transparent;
+  border: 1px solid ;
 }
