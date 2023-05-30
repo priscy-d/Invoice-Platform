@@ -1,0 +1,31 @@
+$background_color:#C6EBBE;
+$muted_text: #797596;
+$call_to_action: #A846A0;
+$normal_text:black;
+
+
+$font_weights: (
+  "thin": 100,
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+
+$font_sizes: (
+  "header": 50px,
+  "sub-header": 30px,
+  "normal_text": 14px,
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap');
+
+body{
+    font-family: 'Raleway', sans-serif;
+    background-color: $background_color;
+
+}
+h1{
+    color: $call_to_action;
+    font-size: map-get($map: $font_sizes, $key:header );
+}
