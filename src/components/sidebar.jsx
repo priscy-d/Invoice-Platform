@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom";
 function Sidebar() {
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    navigate("dashboard");
-  };
-
   return (
-    <div>
+    <div className="sidebar">
       <h2>sidebar goes here</h2>
-      <button onClick={handleSubmit}>go to Dashboard</button>
+      <button onClick={() => navigate("dashboard")}> Dashboard</button>
+      <button onClick={() => navigate("invoices")}>Invoices</button>
+      <button onClick={() => navigate("items")}>Item</button>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
-const Dashboard = () => {
+const Items = () => {
   return (
     <Container className="mt-5">
-      <h2>Dashboard</h2>
+      <h2>Items</h2>
     </Container>
   );
 };
 
-export default Dashboard;
+export default Items;

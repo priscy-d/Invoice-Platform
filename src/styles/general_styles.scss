@@ -1,6 +1,8 @@
 $background_color:#C6EBBE;
+$light_background:#DCEED8;
 $muted_text: #797596;
 $call_to_action: #A846A0;
+$dark:#29524A;
 $normal_text:black;
 
 
@@ -22,10 +24,15 @@ $font_sizes: (
 
 body{
     font-family: 'Raleway', sans-serif;
-    background-color: $background_color;
-
+    margin: 0;
+    background-color: $light_background;
 }
 h1{
     color: $call_to_action;
     font-size: map-get($map: $font_sizes, $key:header );
+}
+.sidebar{
+    background-color: $background_color;
+  margin: 0;
+    height: 100vh;
 }
