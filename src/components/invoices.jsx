@@ -1,10 +1,59 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Button, Col, Container, Row, Table, Form, Nav } from "react-bootstrap";
 
 const Invoices = () => {
   return (
     <Container className="mt-5">
-      <h2>Invoices</h2>
+      <Row className="mb-2">
+        <Col md={10}>
+          <h2>Invoices</h2>
+        </Col>
+        <Col md={2} ClassName="d-flex flex-row-reverse">
+          <Button variant="success">New Invoice</Button>
+        </Col>
+      </Row>
+
+      <Row className="mx-5 my-3">
+        <Col>
+          <h2 className="summary-text">¢2400</h2>
+          <p>overdue</p>
+        </Col>
+        <Col>
+          <h2 className="summary-text">¢0</h2>
+          <p>draft</p>
+        </Col>
+      </Row>
+      <Nav className="me-auto">
+        <Nav.Link className="linked" href="#">
+          Invoices
+        </Nav.Link>
+        <Nav.Link className="linked" href="#">
+          Recurring templates
+        </Nav.Link>
+      </Nav>
+
+      <Form.Control
+        type="text"
+        placeholder="search"
+        className="my-4 search-input"></Form.Control>
+      <Table hover bordered size="sm">
+        <thead className="table-light">
+          <tr>
+            <th>Due date</th>
+            <th>Status</th>
+            <th>Customer</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>18 May 2023</td>
+            <td>Sent</td>
+            <td>Cobby</td>
+            <td>¢2400</td>
+          </tr>
+        </tbody>
+      </Table>
     </Container>
   );
 };
