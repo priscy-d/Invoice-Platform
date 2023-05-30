@@ -1,5 +1,6 @@
 $background_color:#C6EBBE;
-$light_background:#DCEED8;
+$light_background:#DFE7DD;
+$dark_background:#99E787;
 $muted_text: #797596;
 $call_to_action: #A846A0;
 $dark:#29524A;
@@ -33,6 +34,24 @@ h1{
 }
 .sidebar{
     background-color: $background_color;
-  margin: 0;
+    margin: 0;
     height: 100vh;
+}
+.mini-section{
+  background-color: $dark_background;
+  height: 100vh;
+  color: $dark;
+}
+.icon{
+  font-size: 1.5em;
+}
+.large-section{
+  color: $dark;
+}
+.nav-items{
+display: flex;
+flex-direction: row;
+align-items: baseline;
+text-decoration: none;
+color: $dark;
 }
