@@ -8,7 +8,7 @@ import { BsArchive, BsFillPersonPlusFill } from "react-icons/bs";
 
 function Sidebar() {
   return (
-    <div className="sidebar ">
+    <div className="sidebar">
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
           <Stack gap={4}>

@@ -7,10 +7,10 @@ const Layout = () => {
   return (
     <Container fluid>
       <Row>
-        <Col md={2}>
+        <Col md={2} className="position-fixed">
           <Sidebar />
         </Col>
-        <Col md={10}>
+        <Col md={10} className="main-page">
           <Outlet />
         </Col>
       </Row>
