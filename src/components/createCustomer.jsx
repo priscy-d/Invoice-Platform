@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 
-const CreateProduct = () => {
+const CreateCustomer = () => {
   return (
     <Container className="main mt-5">
       <Row>
@@ -76,7 +76,7 @@ const CreateProduct = () => {
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="success" type="submit" className="text-white">
+          <Button variant="dark" type="submit" className="text-white">
             Submit
           </Button>
           <Button variant="outline-dark" type="button" className="me-3 ">
@@ -88,4 +88,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default CreateCustomer;

@@ -29,7 +29,7 @@ function Sidebar() {
             <Link to="invoices" className="nav-items mx-2 ">
               <FaFileInvoice /> <p className="mx-2 text">Invoices</p>
             </Link>
-            <Link to="items" className="nav-items mx-2 ">
+            <Link to="products" className="nav-items mx-2 ">
               <BsArchive /> <p className="mx-2 text">Products</p>
             </Link>
             <Link to="customers" className="nav-items mx-2 ">
