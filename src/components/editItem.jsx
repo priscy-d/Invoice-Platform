@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 
-const CreateProduct = () => {
+const EditProduct = () => {
   return (
     <Container className="main mt-5">
       <Row>
         <Col md={8}>
-          <h2 className="mb-3">New Product</h2>
+          <h2 className="mb-3">Edit Product</h2>
         </Col>
       </Row>
 
@@ -83,4 +83,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default EditProduct;

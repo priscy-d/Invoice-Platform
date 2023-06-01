@@ -6,69 +6,69 @@ const CreateCustomer = () => {
     <Container className="main mt-5">
       <Row>
         <Col md={8}>
-          <h2 className="mb-3">New Product</h2>
+          <h2 className="mb-3">New Customer</h2>
         </Col>
       </Row>
 
       <Row className="my-3">
         <Col md={10} className="mt-2">
           <h5>General</h5>
-          <p>Details about the product</p>
+          <p>Customer personal information</p>
           <hr />
-          <Row>
-            <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-              <Form.Label>Type</Form.Label>
-              <Form.Group>
-                <Button className="me-3" variant="outline-dark">
-                  One-time
-                </Button>
-                <Button variant="outline-dark">Recurring</Button>
-              </Form.Group>
-            </Form.Group>
-          </Row>
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.Label>Name</Form.Label>
-              <Form.Control className="form-fields" type="text" />
-            </Form.Group>
+            <Col className="mb-3" md={6}>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Name</Form.Label>
+                <Form.Control className="form-fields" type="text" />
+              </Form.Group>
+            </Col>
+            <div className="mb-3">
+              <Form.Group as={Col} md={6} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control className="form-fields" type="email" />
+              </Form.Group>
+            </div>
 
-            <Form.Group as={Col} controlId="formGridPassword">
-              <Form.Label>Category</Form.Label>
-              <Form.Control className="form-fields" type="text" />
-            </Form.Group>
+            <div className="mb-3">
+              <Form.Group as={Col} controlId="formGridEmail" md={6}>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control className="form-fields" type="phone" />
+              </Form.Group>
+            </div>
           </Row>
-
-          <Form.Group className="mb-3" controlId="formGridAddress1">
-            <Form.Label>Description</Form.Label>
-            <Form.Control className="form-fields" as="textarea" rows={5} />
-          </Form.Group>
         </Col>
       </Row>
       <Row className="my-3">
         <Col md={10} className="mt-2">
           <h5>Billing</h5>
-          <p>Sales information</p>
+          <p>Customer account information</p>
           <hr />
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail" className="my-3">
-              <Form.Check
-                type="checkbox"
-                id={`default-checkbox`}
-                label={`Sales information`}
-              />
-              <Form.Label className="mt-3">Sales Price</Form.Label>
-              <Form.Control className="form-fields " type="text" />
-              <Form.Label className="mt-3">Tax</Form.Label>
+            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+              <Form.Label>Tax Number</Form.Label>
               <Form.Control className="form-fields" type="text" />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridPassword" className="my-3">
-              <Form.Check
-                type="checkbox"
-                id={`default-checkbox`}
-                label={`Purchase information`}
-              />
-              <Form.Label className="mt-3">Purchase Price</Form.Label>
+              <Form.Label>Currency</Form.Label>
+              <Form.Control className="form-fields" type="text" />
+            </Form.Group>
+          </Row>
+        </Col>
+      </Row>
+      <Row className="my-3">
+        <Col md={10} className="mt-2">
+          <h5>Address</h5>
+          <p>Address information of the customer</p>
+          <hr />
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+              <Form.Label>Country</Form.Label>
+              <Form.Control className="form-fields" type="text" />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+              <Form.Label>City</Form.Label>
               <Form.Control className="form-fields" type="text" />
             </Form.Group>
           </Row>
@@ -76,10 +76,13 @@ const CreateCustomer = () => {
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="dark" type="submit" className="text-white">
+          <Button variant="success" type="submit" className="text-white">
             Submit
           </Button>
-          <Button variant="outline-dark" type="button" className="me-3 ">
+          <Button
+            variant="outline-light"
+            type="button"
+            className="me-3 text-dark">
             Preview
           </Button>
         </Col>

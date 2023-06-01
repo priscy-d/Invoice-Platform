@@ -34,7 +34,7 @@ const Items = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr onClick={() => navigate("/edit-product")}>
             <td>Monthly subscription</td>
             <td>Subscription</td>
             <td>5%</td>

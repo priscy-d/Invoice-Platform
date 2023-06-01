@@ -55,6 +55,7 @@ const Invoices = () => {
             <th>Due date</th>
             <th>Status</th>
             <th>Customer</th>
+            <th>Type</th>
             <th>Amount</th>
           </tr>
         </thead>
@@ -63,6 +64,7 @@ const Invoices = () => {
             <td>18 May 2023</td>
             <td>Sent</td>
             <td>Cobby</td>
+            <td>Recurring</td>
             <td>¢2400</td>
           </tr>
         </tbody>

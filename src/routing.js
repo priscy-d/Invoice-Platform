@@ -13,6 +13,7 @@ import Customers from "./components/customer";
 import CreateInvoice from "./components/createInvoice";
 import CreateProduct from "./components/createProduct";
 import CreateCustomer from "./components/createCustomer";
+import EditProduct from "./components/editItem";
 
 const Routing = () => {
   return (
@@ -26,6 +27,7 @@ const Routing = () => {
           <Route path="invoices" element={<Invoices />}></Route>
           <Route path="create-invoice" element={<CreateInvoice />}></Route>
           <Route path="products" element={<Items />}></Route>
+          <Route path="edit-product" element={<EditProduct />}></Route>
           <Route path="create-product" element={<CreateProduct />}></Route>
         </Route>
       </Routes>

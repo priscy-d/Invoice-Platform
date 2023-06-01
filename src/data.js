@@ -2,14 +2,14 @@ export const Data = [
   {
     id: 1,
     month: "January",
-    income: 0,
-    unpaid: 0,
+    income: 420,
+    unpaid: 300,
   },
   {
     id: 2,
     month: "February",
-    income: 0,
-    unpaid: 0,
+    income: 120,
+    unpaid: 150,
   },
   {
     id: 3,
