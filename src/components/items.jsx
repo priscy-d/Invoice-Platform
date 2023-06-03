@@ -6,7 +6,7 @@ const Items = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/create-product");
+    navigate("/invoice-platform/products/create-product");
   };
   return (
     <Container className="mt-5">
@@ -34,7 +34,8 @@ const Items = () => {
           </tr>
         </thead>
         <tbody>
-          <tr onClick={() => navigate("/edit-product")}>
+          <tr
+            onClick={() => navigate("/invoice-platform/products/edit-product")}>
             <td>Monthly subscription</td>
             <td>Subscription</td>
             <td>5%</td>

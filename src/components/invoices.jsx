@@ -6,7 +6,7 @@ const Invoices = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/create-invoice");
+    navigate("/invoice-platform/invoices/create-invoice");
   };
 
   return (

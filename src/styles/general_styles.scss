@@ -1,9 +1,9 @@
-$background_color: #c6ebbe;
-$light_background: #dfe7dd;
-$dark_background: #99e787;
+$background_color: #E3D8F1;
+$light_background:#F0EEF1;
+$dark_background:#CAB4E7;
 $muted_text: #797596;
 $call_to_action: #a846a0;
-$dark: #29524a;
+$dark: #2B3A67;
 $normal_text: black;
 
 $font_weights: (
@@ -14,8 +14,9 @@ $font_weights: (
 );
 
 $font_sizes: (
-  "header": 50px,
+  "header": 70px,
   "sub-header": 30px,
+  "small":24px,
   "normal_text": 14px,
 );
 
@@ -98,4 +99,16 @@ h1 {
 .form-fields{
   background: transparent;
   border: 1px solid ;
+}
+.heading{
+  font-size: map-get($font_sizes , header );
+  font-weight: map-get($font_weights , bold );
+}
+.mini-caption{
+  font-size: map-get($font_sizes, small);
+  font-weight: map-get($font_weights, medium );
+  color: $muted_text;
+}
+.in-card{
+  box-shadow: 5px 5px $muted_text;
 }

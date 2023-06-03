@@ -6,7 +6,7 @@ const Customers = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    navigate("/create-customer");
+    navigate("/invoice-platform/customers/create-customer");
   };
   return (
     <Container className="mt-5">
