@@ -29,6 +29,10 @@ const Customers = () => {
           <h2 className="summary-text">¢2400</h2>
           <p>debited</p>
         </Col>
+        <Col>
+          <h2 className="summary-text">¢0</h2>
+          <p>draft</p>
+        </Col>
       </Row>
       <Form.Control
         type="text"

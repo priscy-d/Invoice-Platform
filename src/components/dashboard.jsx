@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Container, Row, Form } from "react-bootstrap";
+import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Data, TotalByType } from "../data";
 import { Chart as ChartJS } from "chart.js/auto";
@@ -59,50 +59,60 @@ const Dashboard = () => {
 
       <Row className="my-3">
         <Col className="mt-2">
-          <h5>Receivables</h5>
-          <p>Amount yet to be paid by customers</p>
-          <hr />
-          <p>
-            Total unpaid invoices:<b>¢2400</b>
-          </p>
+          <Card className="p-3 bg-light border-light">
+            <h5>Receivables</h5>
+            <p>Amount yet to be paid by customers</p>
+            <h4>¢2400</h4>
+          </Card>
         </Col>
         <Col className="mt-2">
-          <h5>Paid</h5>
-          <p> Total amount paid by customers</p>
-          <hr />
-          <p>
-            Total paid invoices:<b>¢2400</b>
-          </p>
+          <Card className="p-3 bg-info border-info">
+            <h5>Paid</h5>
+            <p>Total amount paid by customers</p>
+            <h4>¢2400</h4>
+          </Card>
+        </Col>
+        <Col className="mt-2">
+          <Card className="p-3 bg-success border-success">
+            <h5>Account balance</h5>
+            <p>Total amount in bank account</p>
+            <h4>¢2400</h4>
+          </Card>
         </Col>
       </Row>
       <Row className="my-5">
         <h5>Cash flow chart</h5>
         <p> Total amount made and due customers</p>
         <hr />
-
-        <div className="graph">
-          <Bar data={data} />
-        </div>
+        <Col md={10}>
+          <div className="graph">
+            <Bar data={data} />
+          </div>
+        </Col>
+        <Col className="my-5">
+          <div>
+            <h5>Income</h5>
+            <p>
+              <b>¢2400</b>
+            </p>
+          </div>
+          <div>
+            <h5>Unpaid</h5>
+            <p>
+              {" "}
+              <b>¢2400</b>
+            </p>
+          </div>
+        </Col>
       </Row>
       <Row className="my-5">
-        <Col className="mt-2">
+        <Col md={8} className="mt-2">
           <h5>Income by type</h5>
           <p>Total income across invoice types </p>
           <hr />
           <div className="dough-graph mt-3">
             <Doughnut data={totalData} />
           </div>
-        </Col>
-        <Col className="mt-2">
-          <h5>Account balance</h5>
-          <p> Total amount in bank account</p>
-          <hr />
-          <Row>
-            <Col md={10}>Cash</Col>
-            <Col md={2}>
-              <b>¢2400</b>
-            </Col>
-          </Row>
         </Col>
       </Row>
     </Container>

@@ -5,6 +5,10 @@ $muted_text: #797596;
 $call_to_action: #a846a0;
 $dark: #2B3A67;
 $normal_text: black;
+$light: #d6a3d2;
+$info: rgb(133, 133, 200);
+$success: rgb(123, 200, 146);
+
 
 $font_weights: (
   "thin": 100,
@@ -91,7 +95,7 @@ h1 {
   width: 90%;
 }
 .dough-graph{
-  width:50%
+  width:70%
 }
 .main-page{
   margin-left: 16.67%;
