@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
-import { Data, TotalByType } from "../data";
+import { Data, TotalByType } from "../../data";
 import { Chart as ChartJS } from "chart.js/auto";
 
 const Dashboard = () => {
@@ -38,7 +38,7 @@ const Dashboard = () => {
           <Form.Group>
             <div className="d-flex flex-row">
               <Form.Control
-                className="date me-2"
+                className=" me-2"
                 type="date"
                 placeholder="start date"
                 size="sm"
@@ -46,7 +46,6 @@ const Dashboard = () => {
               />
 
               <Form.Control
-                className="date"
                 type="date"
                 placeholder="end date"
                 size="sm"

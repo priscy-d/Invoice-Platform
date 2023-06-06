@@ -86,11 +86,7 @@ h1 {
 .main p{
   font-size: map-get($map: $font_sizes, $key:normal_text );
 }
-.date{
-  
-  background: transparent;
-  border: 1px solid ;
-}
+
 .graph{
   width: 90%;
 }
@@ -100,10 +96,7 @@ h1 {
 .main-page{
   margin-left: 16.67%;
 }
-.form-fields{
-  background: transparent;
-  border: 1px solid ;
-}
+
 .heading{
   font-size: map-get($font_sizes , header );
   font-weight: map-get($font_weights , bold );

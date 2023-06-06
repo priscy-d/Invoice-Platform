@@ -1,68 +1,59 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import CreatableSelect from "react-select/creatable";
+import { countryOptions, currencyOptions } from "../../data";
 
-const CreateInvoice = () => {
+const CreateCustomer = () => {
   return (
     <Container className="main mt-5">
       <Row>
         <Col md={8}>
-          <h2 className="mb-3">New Invoice</h2>
+          <h2 className="mb-3">New Customer</h2>
         </Col>
       </Row>
-
       <Row className="my-3">
         <Col md={10} className="mt-2">
           <h5>General</h5>
-          <p>Adding your personal identification information</p>
+          <p>Customer personal information</p>
           <hr />
           <Row className="mb-3">
             <Col className="mb-3" md={6}>
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Title</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control className="form-fields" type="text" />
               </Form.Group>
             </Col>
-            <div className="mb-3">
-              <Form.Group as={Col} md={6} controlId="formGridEmail">
-                <Form.Label>Subheading</Form.Label>
+            <Col className="mb-3" md={6}>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
                 <Form.Control className="form-fields" type="email" />
               </Form.Group>
-            </div>
+            </Col>
+
+            <Col className="mb-3" md={6}>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Phone</Form.Label>
+                <Form.Control className="form-fields" type="phone" />
+              </Form.Group>
+            </Col>
           </Row>
         </Col>
       </Row>
       <Row className="my-3">
         <Col md={10} className="mt-2">
-          <h5>Customer details</h5>
-          <p>Customer account and personal information</p>
+          <h5>Billing</h5>
+          <p>Customer account information</p>
           <hr />
           <Row className="mb-3">
-            <Col>
-              <Form.Group controlId="formGridPassword" className="my-3">
-                <Form.Label>Customer</Form.Label>
-                <Form.Control className="form-fields" type="text" />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group
-                as={Col}
-                md={6}
-                controlId="formGridPassword"
-                className="my-3">
-                <Form.Label>Invoice Date</Form.Label>
-                <Form.Control className="form-fields" type="text" />
-                <Form.Label>Due Date</Form.Label>
-                <Form.Control className="form-fields" type="text" />
-              </Form.Group>
-              <Form.Group
-                as={Col}
-                md={6}
-                controlId="formGridPassword"
-                className="my-3">
-                <Form.Label>Invoice number</Form.Label>
-                <Form.Control className="form-fields" type="text" />
-              </Form.Group>
-            </Col>
+            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+              <Form.Label>Tax Number</Form.Label>
+              <Form.Control className="form-fields" type="text" />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+              <Form.Label>Currency</Form.Label>
+              <CreatableSelect isClearable options={currencyOptions} />
+            </Form.Group>
           </Row>
         </Col>
       </Row>
@@ -74,15 +65,11 @@ const CreateInvoice = () => {
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formGridPassword" className="my-3">
               <Form.Label>Country</Form.Label>
-              <Form.Control className="form-fields" type="text" />
+              <CreatableSelect isClearable options={countryOptions} />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridPassword" className="my-3">
               <Form.Label>City</Form.Label>
-              <Form.Control className="form-fields" type="text" />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
-              <Form.Label>Discount</Form.Label>
               <Form.Control className="form-fields" type="text" />
             </Form.Group>
           </Row>
@@ -105,4 +92,4 @@ const CreateInvoice = () => {
   );
 };
 
-export default CreateInvoice;
+export default CreateCustomer;

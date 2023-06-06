@@ -6,16 +6,19 @@ import {
   Navigate,
 } from "react-router-dom";
 import Layout from "./layout";
-import Dashboard from "./components/dashboard";
-import Invoices from "./components/invoices";
-import Items from "./components/items";
-import Customers from "./components/customer";
-import CreateInvoice from "./components/createInvoice";
-import CreateProduct from "./components/createProduct";
-import CreateCustomer from "./components/createCustomer";
-import EditProduct from "./components/editItem";
-import Signup from "./components/signup";
-import Login from "./components/login";
+import Dashboard from "./components/dashboard/dashboard";
+import Invoices from "./components/invoice/invoices";
+import Items from "./components/product/items";
+import Customers from "./components/customer/customer";
+import CreateInvoice from "./components/invoice/createInvoice";
+import CreateProduct from "./components/product/createProduct";
+import CreateCustomer from "./components/customer/createCustomer";
+import EditProduct from "./components/product/editItem";
+import Signup from "./components/user/signup";
+import Login from "./components/user/login";
+import ViewInvoice from "./components/invoice/viewInvoice";
+import ViewCustomer from "./components/customer/viewCustomer";
+import Recurring from "./components/invoice/recurring";
 
 const Routing = () => {
   return (
@@ -33,11 +36,14 @@ const Routing = () => {
           <Route path="customers">
             <Route index element={<Customers />}></Route>
             <Route path="create-customer" element={<CreateCustomer />}></Route>
+            <Route path="view-customer" element={<ViewCustomer />}></Route>
           </Route>
 
           <Route path="invoices">
             <Route index element={<Invoices />}></Route>
             <Route path="create-invoice" element={<CreateInvoice />}></Route>
+            <Route path="view-invoice" element={<ViewInvoice />}></Route>
+            <Route path="recurring-templates" element={<Recurring />}></Route>
           </Route>
 
           <Route path="products">

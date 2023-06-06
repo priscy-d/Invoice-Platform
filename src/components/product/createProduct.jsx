@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import CreatableSelect from "react-select/creatable";
+import { taxOptions } from "../../data";
 
 const CreateProduct = () => {
   return (
@@ -18,8 +20,18 @@ const CreateProduct = () => {
           <Row>
             <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
               <Form.Label>Type</Form.Label>
-              <Form.Check type="switch" id="custom-switch" label="One-time" />
-              <Form.Check type="switch" id="custom-switch" label="Recurring" />
+              <Form.Group as={Row} className="mb-3">
+                <Col md={2}>
+                  <Button variant="outline-dark" style={{ width: "90%" }}>
+                    One-time
+                  </Button>
+                </Col>
+                <Col md={2}>
+                  <Button variant="outline-dark" style={{ width: "90%" }}>
+                    Recurring
+                  </Button>
+                </Col>
+              </Form.Group>
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -27,7 +39,7 @@ const CreateProduct = () => {
               <Col md={6}>
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Name</Form.Label>
-                  <Form.Control className="form-fields" type="text" />
+                  <Form.Control type="text" size="sm" />
                 </Form.Group>
               </Col>
             </Row>
@@ -35,7 +47,7 @@ const CreateProduct = () => {
 
           <Form.Group className="mb-3" controlId="formGridAddress1">
             <Form.Label>Description</Form.Label>
-            <Form.Control className="form-fields" as="textarea" rows={5} />
+            <Form.Control as="textarea" rows={5} />
           </Form.Group>
         </Col>
       </Row>
@@ -50,11 +62,12 @@ const CreateProduct = () => {
                 type="checkbox"
                 id={`default-checkbox`}
                 label={`Sales information`}
+                checked
               />
               <Form.Label className="mt-3">Sales Price</Form.Label>
-              <Form.Control className="form-fields " type="text" />
+              <Form.Control type="text" size="sm" />
               <Form.Label className="mt-3">Tax</Form.Label>
-              <Form.Control className="form-fields" type="text" />
+              <CreatableSelect isClearable options={taxOptions} />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridPassword" className="my-3">
@@ -62,9 +75,10 @@ const CreateProduct = () => {
                 type="checkbox"
                 id={`default-checkbox`}
                 label={`Purchase information`}
+                checked
               />
               <Form.Label className="mt-3">Purchase Price</Form.Label>
-              <Form.Control className="form-fields" type="text" />
+              <Form.Control size="sm" type="text" />
             </Form.Group>
           </Row>
         </Col>

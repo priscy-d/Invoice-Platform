@@ -48,15 +48,10 @@ const Customers = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Divine Eteba</td>
-            <td>divineeteba@gmail.com</td>
-            <td>Accra, Ghana</td>
-            <td>
-              <p>debit:¢1000</p> <p>credit:¢1000</p>
-            </td>
-          </tr>
-          <tr>
+          <tr
+            onClick={() =>
+              navigate("/invoice-platform/customers/view-customer")
+            }>
             <td>Divine Eteba</td>
             <td>divineeteba@gmail.com</td>
             <td>Accra, Ghana</td>
