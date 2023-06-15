@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Data, TotalByType } from "../data";
 import { Chart as ChartJS } from "chart.js/auto";
 import { init } from "../Keycloak";
+
 
 const Dashboard = () => {
   const [data, setData] = useState({
@@ -28,7 +29,10 @@ const Dashboard = () => {
       },
     ],
   });
+  let isRun = useRef(false) 
   useEffect(() => {
+    if(isRun.current) return;
+        isRun.current = true; 
     init()
 
   },[])
