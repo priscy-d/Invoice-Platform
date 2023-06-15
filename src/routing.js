@@ -16,16 +16,19 @@ import CreateCustomer from "./components/createCustomer";
 import EditProduct from "./components/editItem";
 import Signup from "./components/signup";
 import Login from "./components/login";
+// import keycloak from "./Keycloak";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
 
 const Routing = () => {
   return (
+    // <ReactKeycloakProvider authClient={keycloak}>
     <Router>
       <Routes>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Route index element={<Navigate replace to={"auth/login"} />} />
           <Route path="auth/login" element={<Login />} />
           <Route path="auth/signup" element={<Signup />} />
-        </Route>
+        </Route> */}
 
         <Route exact path="/invoice-platform" element={<Layout />}>
           <Route index element={<Navigate replace to={"dashboard"} />} />
@@ -48,6 +51,7 @@ const Routing = () => {
         </Route>
       </Routes>
     </Router>
+    // </ReactKeycloakProvider>
   );
 };
 

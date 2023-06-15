@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { init } from "../Keycloak";
 const Signup = () => {
   const navigate = useNavigate();
   return (
@@ -26,7 +27,7 @@ const Signup = () => {
               </Form.Group>
 
               <div className=" d-grid gap-2">
-                <Button className="mt-3" variant="dark" type="submit">
+                <Button className="mt-3" variant="dark"  onClick={init}>
                   Login
                 </Button>
                 <Row>

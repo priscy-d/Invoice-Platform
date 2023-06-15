@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Data, TotalByType } from "../data";
 import { Chart as ChartJS } from "chart.js/auto";
+import { init } from "../Keycloak";
 
 const Dashboard = () => {
   const [data, setData] = useState({
@@ -27,6 +28,10 @@ const Dashboard = () => {
       },
     ],
   });
+  useEffect(() => {
+    init()
+
+  },[])
 
   return (
     <Container className="main mt-5">
