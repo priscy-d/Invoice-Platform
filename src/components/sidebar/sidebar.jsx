@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Stack } from "react-bootstrap";
+import { Col, Row, Stack, Button } from "react-bootstrap";
 import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
 import { BsArchive, BsFillPersonPlusFill } from "react-icons/bs";
+import Image from 'react-bootstrap/Image';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 function Sidebar() {
   return (
@@ -12,6 +15,25 @@ function Sidebar() {
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
           <Stack gap={4}>
+          <OverlayTrigger
+      placement="bottom"
+      overlay={<Tooltip id="button-tooltip-2">Check out this avatar</Tooltip>}
+    >
+      {({ ref, ...triggerHandler }) => (
+        <Button
+          variant="light"
+          {...triggerHandler}
+          className="d-inline-flex align-items-center"
+        >
+          <BiUserCircle
+            ref={ref}
+            roundedCircle
+            
+          />
+         
+        </Button>
+      )}
+    </OverlayTrigger>
             <BiUserCircle className="icon" />
             <BiSearchAlt2 className="icon" />
             <BiNotification className="icon" />
