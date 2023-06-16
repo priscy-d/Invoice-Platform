@@ -21,13 +21,13 @@ const CreateInvoice = () => {
             <Col className="mb-3" md={6}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Title</Form.Label>
-                <Form.Control size="sm" type="text" />
+                <Form.Control type="text" />
               </Form.Group>
             </Col>
             <Col className="mb-3" md={6}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Subheading</Form.Label>
-                <Form.Control size="sm" type="email" />
+                <Form.Control type="email" />
               </Form.Group>
             </Col>
           </Row>
@@ -42,7 +42,7 @@ const CreateInvoice = () => {
             <Col>
               <Form.Group controlId="formGridPassword" className="my-3">
                 <Form.Label>Customer</Form.Label>
-                <Form.Control type="text" />
+                <CreatableSelect isClearable options={taxOptions} />
               </Form.Group>
             </Col>
             <Col>
@@ -56,7 +56,6 @@ const CreateInvoice = () => {
                     className=" me-2"
                     type="date"
                     placeholder="start date"
-                    size="sm"
                     id="date"
                   />
                 </Form.Group>
@@ -66,18 +65,8 @@ const CreateInvoice = () => {
                     className="me-2"
                     type="date"
                     placeholder="start date"
-                    size="sm"
                     id="date"
                   />
-                </Form.Group>
-
-                <Form.Group
-                  as={Col}
-                  md={6}
-                  controlId="formGridPassword"
-                  className="my-3">
-                  <Form.Label>Invoice number</Form.Label>
-                  <Form.Control type="text" size="sm" />
                 </Form.Group>
               </Form.Group>
             </Col>
@@ -105,45 +94,64 @@ const CreateInvoice = () => {
               controlId="formGridPassword"
               className="my-3">
               <Form.Label>City</Form.Label>
-              <Form.Control type="text" size="sm" />
-            </Form.Group>
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="formGridPassword"
-              className="my-3">
-              <Form.Label>Discount</Form.Label>
-              <Form.Control type="text" size="sm" />
-            </Form.Group>
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="formGridPassword"
-              className="my-3">
-              <Form.Label>Tax</Form.Label>
-              <CreatableSelect isClearable options={taxOptions} />
+              <Form.Control type="text" />
             </Form.Group>
           </Row>
         </Col>
       </Row>
-      <Row className="my-5">
-        <Col md={2} className="d-flex justify-content-end">
-          <Table>
-            <thead>
-              <tr>
-                <td>Sub-total</td>
-                <td>Total</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>500</td>
-                <td>600</td>
-              </tr>
-            </tbody>
-          </Table>
+      <Row className="my-3">
+        <Col md={10} className="mt-2">
+          <h5>Product information</h5>
+
+          <hr />
+          <Row className="mb-3">
+            <Table>
+              <thead>
+                <tr>
+                  <td>Item</td>
+                  <td>Tax</td>
+                  <td>Discount</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <CreatableSelect
+                      isClearable
+                      options={countryOptions}
+                      className="tableSelect"
+                    />
+                  </td>
+                  <td>
+                    <CreatableSelect isClearable options={taxOptions} />
+                  </td>
+                  <td>
+                    <Form.Control type="text" />
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+
+            <Col md={2} className="d-flex justify-content-end">
+              <Table>
+                <thead>
+                  <tr>
+                    <td>Sub-total</td>
+                    <td>Total</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>500</td>
+                    <td>600</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
         </Col>
       </Row>
+      <Row className="my-5"></Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
           <Button variant="success" type="submit" className="text-white">

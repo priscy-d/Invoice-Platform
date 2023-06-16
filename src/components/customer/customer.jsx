@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Customers = () => {
   const navigate = useNavigate();
 
+ 
+
   const handleSubmit = () => {
     navigate("/invoice-platform/customers/create-customer");
   };
