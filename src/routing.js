@@ -16,12 +16,11 @@ import CreateCustomer from "./components/createCustomer";
 import EditProduct from "./components/editItem";
 import Signup from "./components/signup";
 import Login from "./components/login";
-// import keycloak from "./Keycloak";
-import { ReactKeycloakProvider } from "@react-keycloak/web";
+
 
 const Routing = () => {
   return (
-    // <ReactKeycloakProvider authClient={keycloak}>
+   
     <Router>
       <Routes>
         {/* <Route exact path="/">
@@ -51,7 +50,7 @@ const Routing = () => {
         </Route>
       </Routes>
     </Router>
-    // </ReactKeycloakProvider>
+    
   );
 };
 

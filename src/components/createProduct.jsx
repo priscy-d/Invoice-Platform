@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 
+
 const CreateProduct = () => {
   return (
     <Container className="main mt-5">
@@ -20,6 +21,9 @@ const CreateProduct = () => {
               <Form.Label>Type</Form.Label>
               <Form.Check type="switch" id="custom-switch" label="One-time" />
               <Form.Check type="switch" id="custom-switch" label="Recurring" />
+              
+
+
             </Form.Group>
           </Row>
           <Row className="mb-3">

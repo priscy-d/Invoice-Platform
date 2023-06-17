@@ -53,6 +53,7 @@ const CreateInvoice = () => {
                 <Form.Control className="form-fields" type="text" />
                 <Form.Label>Due Date</Form.Label>
                 <Form.Control className="form-fields" type="text" />
+                {/* <DatePicker selected={selectedDate} onChange={handleDateChange} dateFormat="dd/MM/yyyy" /> */}
               </Form.Group>
               <Form.Group
                 as={Col}
@@ -90,7 +91,7 @@ const CreateInvoice = () => {
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="success" type="submit" className="text-white">
+          <Button variant="success" className="text-white">
             Submit
           </Button>
           <Button

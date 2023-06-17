@@ -1,38 +1,82 @@
-import axios from "axios";
-import React, {  useState } from "react";
-import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  Row,
+  Form,
+  DropdownButton,
+} from "react-bootstrap";
+import { BASE_URL } from "../constants/BASE_URL";
+import { Countries } from "../Utils/countries";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { Link } from "react-router-dom";
 
 const CreateCustomer = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [taxNumber, setTaxNumber] = useState('');
-  const [currency, setCurrency] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [taxNumber, setTaxNumber] = useState("");
+  const [country, setCountry] = useState(Countries[0]);
+  const [currency, setCurrency] = useState(Countries[0].currencyType);
+  const [countryName, setCountryName] = useState(Countries[0].name);
+  const [city, setCity] = useState("");
+  const [errors, setErrors] = useState({});
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
-  const handleSubmit = async(e) =>{
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    
+    e.preventDefault();
+    const validationErrors = {};
+
+    if (!name) {
+      validationErrors.name = "Name is required.";
+    }
+
+    if (!email) {
+      validationErrors.email = "Email is required.";
+    } else if (!isValidEmail(email)) {
+      validationErrors.email = "Invalid email format.";
+    }
+
+    if (!phone) {
+      validationErrors.phone = "Phone is required.";
+
+    }
+
+    if (!taxNumber) {
+      validationErrors.taxNumber = "tax Number is required.";
+    }
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setTaxNumber("");
+    setErrors({});
     try {
-      const response = await axios.post('http://0.0.0.0:8081/customers',{
-      name:name,
-      email:email,
-      phone:phone,
-      taxNumber: taxNumber,
-      currency: currency,
-      country:country,
-      city: city,
-    })
-  
-   
-      
+      const response = await BASE_URL.post("/customers", {
+        name: name,
+        email: email,
+        phoneNumber: phone,
+        taxNumber: taxNumber,
+        currency: country.currencyType,
+        country: country.name,
+        city: city,
+      });
+      console.log(response);
     } catch (error) {
       console.log(error);
-      
     }
-  }
-  
 
+    alert("Customer created successfully!");
+  };
 
   return (
     <Container className="main mt-5">
@@ -51,20 +95,38 @@ const CreateCustomer = () => {
             <Col className="mb-3" md={6}>
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Name</Form.Label>
-                <Form.Control className="form-fields" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                <Form.Control
+                  className="form-fields"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {errors.name && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.name}</span>}
               </Form.Group>
             </Col>
             <div className="mb-3">
               <Form.Group as={Col} md={6} controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control className="form-fields" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <Form.Control
+                  className="form-fields"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.email}</span>}
               </Form.Group>
             </div>
 
             <div className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail" md={6}>
                 <Form.Label>Phone</Form.Label>
-                <Form.Control className="form-fields" type="phone" value={phone} onChange={(e) => setPhone(e.target.value)}/>
+                <Form.Control
+                  className="form-fields"
+                  type="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                {errors.phone && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.phone}</span>}
               </Form.Group>
             </div>
           </Row>
@@ -76,15 +138,24 @@ const CreateCustomer = () => {
           <p>Customer account information</p>
           <hr />
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+            <Form.Group
+              as={Col}
+              controlId="formGridPassword"
+              className="my-3"
+              md={6}>
               <Form.Label>Tax Number</Form.Label>
-              <Form.Control className="form-fields" type="text" value={taxNumber} onChange={(e) => setTaxNumber(e.target.value)}/>
+              <Form.Control
+                className="form-fields"
+                type="text"
+                value={taxNumber}
+                onChange={(e) => setTaxNumber(e.target.value)}
+              />
+              {errors.taxNumber && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.taxNumber}</span>}
             </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
-              <Form.Label>Currency</Form.Label>
-              <Form.Control className="form-fields" type="text" value={currency} onChange={(e) => setCurrency(e.target.value)}/>
-            </Form.Group>
+            <Form.Label>Choose Currency</Form.Label>
+            <Button className="w-25" disabled variant="outline-light">
+              {country.currencyType}value{currency}
+            </Button>
           </Row>
         </Col>
       </Row>
@@ -94,29 +165,51 @@ const CreateCustomer = () => {
           <p>Address information of the customer</p>
           <hr />
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
-              <Form.Label>Country</Form.Label>
-              <Form.Control className="form-fields" type="text" value={country} onChange={(e) => setCountry(e.target.value)} />
-            </Form.Group>
+            <label>choose country</label>
+            <DropdownButton
+              className="w=25"
+              variant="outline-light"
+              title={countryName}>
+              {Countries.map((country, key) => {
+                return (
+                  <DropdownItem
+                    key={key}
+                    onClick={() => {
+                      setCountryName(country.name);
+                      setCountry(country);
+                      setCurrency(country.currencyType);
+                    }}>
+                    {country.name}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownButton>
 
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
+            <Form.Group
+              as={Col}
+              controlId="formGridPassword"
+              className="my-3"
+              md={6}>
               <Form.Label>City</Form.Label>
-              <Form.Control className="form-fields" type="text" value={city} onChange={(e) => setCity(e.target.value)}/>
+              <Form.Control
+                className="form-fields"
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
             </Form.Group>
           </Row>
         </Col>
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="success" className="text-white" onClick={handleSubmit}>
+          <Button
+            variant="success"
+            className="text-white"
+            onClick={handleSubmit}>
             Submit
           </Button>
-          <Button
-            variant="outline-light"
-            type="button"
-            className="me-3 text-dark" >
-            Preview
-          </Button>
+          <Link to="" />
         </Col>
       </Row>
     </Container>
