@@ -111,7 +111,7 @@ export const transactions = [
     amount: 2400,
   },
 ];
-export const status = [
+export const Status = [
   {
     name: "Sent",
     description: "Amount yet to be paid by customers",
