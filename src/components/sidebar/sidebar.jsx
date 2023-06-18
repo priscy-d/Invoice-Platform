@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Stack, Button } from "react-bootstrap";
+import { Col, Row, Stack, Button, Offcanvas } from "react-bootstrap";
 import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
@@ -11,17 +11,23 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 function Sidebar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div className="sidebar">
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
           <Stack gap={4}>
-            <BiUserCircle className="icon" />
+            <BiUserCircle className="icon" onClick={handleShow} />
             <BiSearchAlt2 className="icon" />
             <BiNotification className="icon" />
             <AiOutlineSetting className="icon" />
           </Stack>
         </Col>
+
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
             <h3 className="companyName">Generis</h3>
@@ -44,6 +50,21 @@ function Sidebar() {
               <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={2}></Col>
+        <Col>
+          {" "}
+          <Offcanvas className="sidebar" show={show} onHide={handleClose}>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              Some text as placeholder. In real life you can have the elements
+              you have ch osen. Like, text, images, lists, etc.
+            </Offcanvas.Body>
+          </Offcanvas>
         </Col>
       </Row>
     </div>
