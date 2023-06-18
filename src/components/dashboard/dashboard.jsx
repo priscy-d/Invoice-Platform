@@ -60,7 +60,7 @@ const Dashboard = () => {
         {cardItem.map((item) => {
           const { name, description, amount } = item;
           return (
-            <Col className="mt-2">
+            <Col>
               <Card className="p-3 bg-light border-light">
                 <h5>{name}</h5>
                 <p>{description}</p>
@@ -110,13 +110,13 @@ const Dashboard = () => {
             </Col>
             <Col className="my-5">
               <div>
-                <h5>Income</h5>
+                <h5>Total active customers</h5>
                 <p>
                   <b>¢2400</b>
                 </p>
               </div>
               <div>
-                <h5>Unpaid</h5>
+                <h5>Total Inactive customers</h5>
                 <p>
                   {" "}
                   <b>¢2400</b>
