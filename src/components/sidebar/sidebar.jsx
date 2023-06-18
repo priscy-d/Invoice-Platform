@@ -26,7 +26,7 @@ function Sidebar() {
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
           <Stack gap={4}>
-            <BiUserCircle className="icon" />
+            <BiUserCircle className="icon" onClick={handleShow} />
             <BiSearchAlt2 className="icon" />
             <GrAddCircle className="icon" />
             <BiNotification className="icon" />
@@ -37,8 +37,7 @@ function Sidebar() {
             onHide={handleClose}
             scroll={true}
             backdrop={false}
-            className="offcanvas pt-5 px-2"
-          >
+            className="offcanvas pt-5 px-2">
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>
                 <AiOutlineSetting /> Setting
@@ -48,14 +47,14 @@ function Sidebar() {
               <Form.Control
                 type="text"
                 placeholder="search"
-                className="my-4 search-input"
-              ></Form.Control>
+                className="my-4 search-input"></Form.Control>
               <Link to="settings\currencies" className="nav-items mx-2 ">
                 <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
               </Link>
             </Offcanvas.Body>
           </Offcanvas>
         </Col>
+
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
             <h3 className="companyName">Generis</h3>
@@ -78,6 +77,21 @@ function Sidebar() {
               <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={2}></Col>
+        <Col>
+          {" "}
+          <Offcanvas className="sidebar" show={show} onHide={handleClose}>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              Some text as placeholder. In real life you can have the elements
+              you have ch osen. Like, text, images, lists, etc.
+            </Offcanvas.Body>
+          </Offcanvas>
         </Col>
       </Row>
     </div>
