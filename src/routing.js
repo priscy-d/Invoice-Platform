@@ -33,7 +33,7 @@ const Routing = () => {
           <Route index element={<Navigate replace to={"dashboard"} />} />
           <Route path="dashboard" element={<Dashboard />}></Route>
           <Route path="customers">
-            <Route index element={<Customers />}></Route>
+            <Route index element={<Customers />}/>
             <Route path="create-customer" element={<CreateCustomer />}></Route>
           </Route>
 

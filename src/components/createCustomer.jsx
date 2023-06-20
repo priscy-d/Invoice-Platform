@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {  toast } from 'react-toastify';
 import {
   Button,
   Col,
@@ -10,7 +11,7 @@ import {
 import { BASE_URL } from "../constants/BASE_URL";
 import { Countries } from "../Utils/countries";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CreateCustomer = () => {
   const [name, setName] = useState("");
@@ -22,8 +23,10 @@ const CreateCustomer = () => {
   const [countryName, setCountryName] = useState(Countries[0].name);
   const [city, setCity] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate()
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     return emailRegex.test(email);
   };
 
@@ -70,12 +73,20 @@ const CreateCustomer = () => {
         country: country.name,
         city: city,
       });
-      console.log(response);
+      console.log(response)
+      if (response.data.message === "Success") {
+        toast.success("Customer Created", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000
+        })    
+      }
+      
+      navigate('/invoice-platform/customers')
+      
     } catch (error) {
       console.log(error);
     }
-
-    alert("Customer created successfully!");
+    
   };
 
   return (
@@ -153,7 +164,7 @@ const CreateCustomer = () => {
               {errors.taxNumber && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.taxNumber}</span>}
             </Form.Group>
             <Form.Label>Choose Currency</Form.Label>
-            <Button className="w-25" disabled variant="outline-light">
+            <Button className="w-auto" disabled variant="outline-light">
               {country.currencyType}value{currency}
             </Button>
           </Row>
