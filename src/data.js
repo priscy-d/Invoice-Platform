@@ -97,3 +97,11 @@ export const currencyOptions = [
   { value: "Nigeria", label: "Naira" },
   { value: "USA", label: "USD" },
 ];
+
+export const transactions =[
+  {name:"Recievables", description:"Amount yet to be paid by customers", amount:2400},
+  {name:"Paid", description:"Total amount paid by customers", amount:2400},
+  {name:"Accont balance", description:"Total amount in bank account", amount:2400}
+
+
+]
