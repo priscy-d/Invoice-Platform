@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../pagination";
 
 const Customers = () => {
   const navigate = useNavigate();
+
+ 
 
   const handleSubmit = () => {
     navigate("/invoice-platform/customers/create-customer");
@@ -23,6 +26,14 @@ const Customers = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCustomers, setFilteredCustomers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(18);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const data = filteredCustomers?.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = filteredCustomers? Math.ceil(filteredCustomers?.length / recordsPerPage) : 1;
+
+
 
   const handleSearchChange = (event) => {
     const query = event.target.value;
@@ -88,7 +99,7 @@ const Customers = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredCustomers.map((customer) => (
+          {data?.map((customer) => (
             <tr key={customer.id}>
               <td>{customer.name}</td>
               <td>{customer.email}</td>
@@ -99,8 +110,14 @@ const Customers = () => {
               <td>{customer.accountInfo}</td>
             </tr>
           ))}
+          
         </tbody>
       </Table>
+      <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
     </Container>
   );
 };

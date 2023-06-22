@@ -85,3 +85,15 @@ export const TotalByType = [
     total: 3000,
   },
 ];
+export const taxOptions = [{ value: "first", label: "10%" }];
+
+export const countryOptions = [
+  { value: "Ghana", label: "Ghana" },
+  { value: "Nigeria", label: "Nigeria" },
+  { value: "USA", label: "USA" },
+];
+export const currencyOptions = [
+  { value: "Ghana", label: "GHC" },
+  { value: "Nigeria", label: "Naira" },
+  { value: "USA", label: "USD" },
+];

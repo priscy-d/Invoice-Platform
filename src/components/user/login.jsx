@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Col, Container, Row, Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { init } from "../Keycloak";
+import { init } from "../../Keycloak";
 const Signup = () => {
   const navigate = useNavigate();
   return (

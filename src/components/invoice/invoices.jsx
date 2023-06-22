@@ -37,10 +37,12 @@ const Invoices = () => {
         </Col>
       </Row>
       <Nav className="me-auto">
-        <Nav.Link className="linked" href="#">
+        <Nav.Link className="linked" href="/invoice-platform/invoices">
           Invoices
         </Nav.Link>
-        <Nav.Link className="linked" href="#">
+        <Nav.Link
+          className="linked"
+          href="/invoice-platform/invoices/recurring-templates">
           Recurring templates
         </Nav.Link>
       </Nav>
@@ -60,12 +62,9 @@ const Invoices = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>18 May 2023</td>
-            <td>Sent</td>
-            <td>Cobby</td>
-            <td>Recurring</td>
-            <td>¢2400</td>
+          <tr
+            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}>
+            
           </tr>
         </tbody>
       </Table>
