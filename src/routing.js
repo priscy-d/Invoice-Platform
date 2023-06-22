@@ -18,7 +18,9 @@ import Signup from "./components/user/signup";
 import Login from "./components/user/login";
 import ViewInvoice from "./components/invoice/viewInvoice";
 import ViewCustomer from "./components/customer/viewCustomer";
-import Recurring from "./components/invoice/recurring";
+import Subscription from "./components/subcription/subscription";
+import ViewSubscription from "./components/subcription/viewSubscription";
+import CreateSubscription from "./components/subcription/createsubscription";
 
 const Routing = () => {
   return (
@@ -43,13 +45,24 @@ const Routing = () => {
             <Route index element={<Invoices />}></Route>
             <Route path="create-invoice" element={<CreateInvoice />}></Route>
             <Route path="view-invoice" element={<ViewInvoice />}></Route>
-            <Route path="recurring-templates" element={<Recurring />}></Route>
           </Route>
 
           <Route path="products">
             <Route index element={<Items />}></Route>
             <Route path="edit-product" element={<EditProduct />}></Route>
             <Route path="create-product" element={<CreateProduct />}></Route>
+          </Route>
+
+          <Route path="subscriptions">
+            <Route index element={<Subscription />}></Route>
+            <Route
+              path="view-subscription"
+              element={<ViewSubscription />}
+            ></Route>
+            <Route
+              path="create-Subscription"
+              element={<CreateSubscription />}
+            ></Route>
           </Route>
         </Route>
       </Routes>

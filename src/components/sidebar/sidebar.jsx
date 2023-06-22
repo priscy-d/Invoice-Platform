@@ -5,9 +5,10 @@ import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
 import { BsArchive, BsFillPersonPlusFill } from "react-icons/bs";
-import Image from 'react-bootstrap/Image';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import { MdSubscriptions } from "react-icons/md";
+import Image from "react-bootstrap/Image";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function Sidebar() {
   return (
@@ -15,25 +16,6 @@ function Sidebar() {
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
           <Stack gap={4}>
-          <OverlayTrigger
-      placement="bottom"
-      overlay={<Tooltip id="button-tooltip-2">Check out this avatar</Tooltip>}
-    >
-      {({ ref, ...triggerHandler }) => (
-        <Button
-          variant="light"
-          {...triggerHandler}
-          className="d-inline-flex align-items-center"
-        >
-          <BiUserCircle
-            ref={ref}
-            roundedCircle
-            
-          />
-         
-        </Button>
-      )}
-    </OverlayTrigger>
             <BiUserCircle className="icon" />
             <BiSearchAlt2 className="icon" />
             <BiNotification className="icon" />
@@ -42,9 +24,10 @@ function Sidebar() {
         </Col>
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
-            <h5>
+            <h3 className="companyName">Generis</h3>
+            <h6>
               Hi, <b>User</b>
-            </h5>
+            </h6>
             <Link to="dashboard" className="nav-items mx-2 ">
               <AiOutlineDashboard /> <p className="mx-2 text">Dashboard</p>
             </Link>
@@ -56,6 +39,9 @@ function Sidebar() {
             </Link>
             <Link to="customers" className="nav-items mx-2 ">
               <BsFillPersonPlusFill /> <p className="mx-2 text">Customers</p>
+            </Link>
+            <Link to="subscriptions" className="nav-items mx-2 ">
+              <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
         </Col>

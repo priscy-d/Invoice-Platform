@@ -36,21 +36,12 @@ const Invoices = () => {
           <p>draft</p>
         </Col>
       </Row>
-      <Nav className="me-auto">
-        <Nav.Link className="linked" href="/invoice-platform/invoices">
-          Invoices
-        </Nav.Link>
-        <Nav.Link
-          className="linked"
-          href="/invoice-platform/invoices/recurring-templates">
-          Recurring templates
-        </Nav.Link>
-      </Nav>
 
       <Form.Control
         type="text"
         placeholder="search"
-        className="my-4 search-input"></Form.Control>
+        className="my-4 search-input"
+      ></Form.Control>
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
@@ -63,7 +54,8 @@ const Invoices = () => {
         </thead>
         <tbody>
           <tr
-            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}>
+            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}
+          >
             <td>18 May 2023</td>
             <td>Sent</td>
             <td>Cobby</td>

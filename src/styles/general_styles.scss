@@ -1,14 +1,10 @@
-$background_color: #E3D8F1;
-$light_background:#F0EEF1;
-$dark_background:#CAB4E7;
+$background_color: #e3d8f1;
+$light_background: #f0eef1;
+$dark_background: #cab4e7;
 $muted_text: #797596;
 $call_to_action: #a846a0;
-$dark: #2B3A67;
+$dark: #2b3a67;
 $normal_text: black;
-
-$info: rgb(133, 133, 200);
-$success: rgb(123, 200, 146);
-
 
 $font_weights: (
   "thin": 100,
@@ -20,8 +16,9 @@ $font_weights: (
 $font_sizes: (
   "header": 70px,
   "sub-header": 30px,
-  "small":24px,
+  "small": 24px,
   "normal_text": 14px,
+  "extra_small": 10px,
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
@@ -40,13 +37,11 @@ h1 {
   background-color: $background_color;
   margin: 0;
   height: 100vh;
- 
 }
 .mini-section {
   background-color: $dark_background;
   height: 100vh;
   color: $dark;
-
 }
 .icon {
   font-size: 1.5em;
@@ -63,53 +58,77 @@ h1 {
 }
 
 .nav-items:hover {
-  color:$dark;
+  color: $dark;
 }
 .nav-items:active {
-  font-weight: map-get($map: $font_weights, $key:bold );
+  font-weight: map-get($map: $font_weights, $key: bold);
 }
 .text {
   font-size: map-get($map: $font_sizes, $key: normal_text);
 }
-.search-input{
+.search-input {
   border: 0;
-  border-bottom: 1px solid ;
+  border-bottom: 1px solid;
   outline: 0;
   background: transparent;
 }
-.summary-text{
+.summary-text {
   color: $call_to_action;
 }
-.linked{
+.linked {
   color: $muted_text;
 }
-.main p{
-  font-size: map-get($map: $font_sizes, $key:normal_text );
+.main p {
+  font-size: map-get($map: $font_sizes, $key: normal_text);
 }
 
-.graph{
+.graph {
   width: 90%;
 }
-.dough-graph{
-  width:70%
+.dough-graph {
+  width: 70%;
 }
-.main-page{
+.main-page {
   margin-left: 16.67%;
 }
 
-.heading{
-  font-size: map-get($font_sizes , header );
-  font-weight: map-get($font_weights , bold );
+.heading {
+  font-size: map-get($font_sizes, header);
+  font-weight: map-get($font_weights, bold);
 }
-.mini-caption{
+.mini-caption {
   font-size: map-get($font_sizes, small);
-  font-weight: map-get($font_weights, medium );
+  font-weight: map-get($font_weights, medium);
   color: $muted_text;
 }
-.in-card{
+.in-card {
   box-shadow: 5px 5px $muted_text;
 }
-.tableSelect{
+.tableSelect {
   background-color: transparent;
   border: none;
+}
+.status {
+  font-size: map-get($font_sizes, extra_small);
+}
+.statusheight {
+  height: fit-content;
+  background-color: #cab4e7;
+}
+.invoice-card p {
+  font-size: map-get($font_sizes, extra_small);
+  line-height: 0;
+}
+.verticalline {
+  border-left: 1px solid;
+  height: 70%;
+}
+.content p {
+  line-height: 0;
+  font-size: 12px;
+}
+.companyname {
+  font-size: map-get($font_sizes, sub-header);
+  color: $call_to_action;
+  font-weight: map-get($font_weights, bold);
 }
