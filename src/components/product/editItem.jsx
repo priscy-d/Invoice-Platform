@@ -1,9 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
-import CreatableSelect from "react-select/creatable";
-import { taxOptions } from "../../data";
+
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EditProduct = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState({
+    id: "",
+    productName: "",
+    description: "",
+    unitPrice: "",
+    isRecurring: "",
+  });
+
+  const productId = localStorage.getItem('productId')
+
+  useEffect(() => {
+    const getProductById = async () => {
+      try {
+        const response = await fetch(`http://0.0.0.0:8082/products/${productId}`);
+        const data = await response.json();
+        setProduct(data.data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+        
+      }
+    };
+    getProductById();
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const updateProduct = async () => {
+      try {
+        await fetch(`/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(product),
+        });
+        navigate("/invoice-platform/products"); // Redirect back to the product list page after updating
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    updateProduct();
+  };
+
   return (
     <Container className="main mt-5">
       <Row>
@@ -18,28 +72,29 @@ const EditProduct = () => {
           <p>Details about the product</p>
           <hr />
           <Row>
-            <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
+            <Form.Group
+              as={Col}
+              className="mb-3"
+              controlId="formGridAddress1"
+              md={11}>
               <Form.Label>Type</Form.Label>
-              <Form.Group as={Row} className="mb-3">
-                <Col md={2}>
-                  <Button variant="outline-dark" style={{ width: "90%" }}>
-                    One-time
-                  </Button>
-                </Col>
-                <Col md={2}>
-                  <Button variant="outline-dark" style={{ width: "90%" }}>
-                    Recurring
-                  </Button>
-                </Col>
-              </Form.Group>
+
+              <Form.Select className="w-50" defaultValue={product.isRecurring}
+            onChange={handleInputChange}>
+                <option value={"RECURRING"}>Recurring</option>
+                <option selected value={"ONE_TIME"}>
+                  One-Time
+                </option>
+              </Form.Select>
             </Form.Group>
           </Row>
           <Row className="mb-3">
             <Row className="mb-3">
               <Col md={6}>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" size="sm" />
+                  <Form.Label>Product Name</Form.Label>
+                  <Form.Control type="text" defaultValue={product.productName}
+            onChange={handleInputChange}/>
                 </Form.Group>
               </Col>
             </Row>
@@ -47,7 +102,8 @@ const EditProduct = () => {
 
           <Form.Group className="mb-3" controlId="formGridAddress1">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={5} />
+            <Form.Control as="textarea" rows={5} defaultValue={product.description}
+            onChange={handleInputChange} />
           </Form.Group>
         </Col>
       </Row>
@@ -57,39 +113,24 @@ const EditProduct = () => {
           <p>Sales information</p>
           <hr />
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail" className="my-3">
-              <Form.Check
-                type="checkbox"
-                id={`default-checkbox`}
-                label={`Sales information`}
-                checked
-              />
-              <Form.Label className="mt-3">Sales Price</Form.Label>
-              <Form.Control type="text" size="sm" />
-              <Form.Label className="mt-3">Tax</Form.Label>
-              <CreatableSelect isClearable options={taxOptions} />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridPassword" className="my-3">
-              <Form.Check
-                type="checkbox"
-                id={`default-checkbox`}
-                label={`Purchase information`}
-                checked
-              />
-              <Form.Label className="mt-3">Purchase Price</Form.Label>
-              <Form.Control size="sm" type="text" />
+            <Form.Group
+              as={Col}
+              controlId="formGridEmail"
+              className="my-3"
+              md={6}>
+              <Form.Label className="w=25" md={6}>
+                Unit Price
+              </Form.Label>
+              <Form.Control type="text" defaultValue={product.unitPrice}
+            onChange={handleInputChange} />
             </Form.Group>
           </Row>
         </Col>
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="success" type="submit" className="text-white">
+          <Button variant="success" type="submit" className="text-white" onClick={handleSubmit}>
             Submit
-          </Button>
-          <Button variant="outline-dark" type="button" className="me-3 ">
-            Preview
           </Button>
         </Col>
       </Row>

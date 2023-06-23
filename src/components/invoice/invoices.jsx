@@ -54,13 +54,10 @@ const Invoices = () => {
         </thead>
         <tbody>
           <tr
-            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}
-          >
-            <td>18 May 2023</td>
-            <td>Sent</td>
-            <td>Cobby</td>
-            <td>Recurring</td>
-            <td>¢2400</td>
+
+            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}>
+            
+
           </tr>
         </tbody>
       </Table>

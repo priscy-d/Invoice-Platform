@@ -14,8 +14,7 @@ import CreateInvoice from "./components/invoice/createInvoice";
 import CreateProduct from "./components/product/createProduct";
 import CreateCustomer from "./components/customer/createCustomer";
 import EditProduct from "./components/product/editItem";
-import Signup from "./components/user/signup";
-import Login from "./components/user/login";
+
 import ViewInvoice from "./components/invoice/viewInvoice";
 import ViewCustomer from "./components/customer/viewCustomer";
 import Subscription from "./components/subcription/subscription";
@@ -26,17 +25,17 @@ const Routing = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/">
+        {/* <Route exact path="/">
           <Route index element={<Navigate replace to={"auth/login"} />} />
           <Route path="auth/login" element={<Login />} />
           <Route path="auth/signup" element={<Signup />} />
-        </Route>
+        </Route> */}
 
         <Route exact path="/invoice-platform" element={<Layout />}>
           <Route index element={<Navigate replace to={"dashboard"} />} />
           <Route path="dashboard" element={<Dashboard />}></Route>
           <Route path="customers">
-            <Route index element={<Customers />}></Route>
+            <Route index element={<Customers />} />
             <Route path="create-customer" element={<CreateCustomer />}></Route>
             <Route path="view-customer" element={<ViewCustomer />}></Route>
           </Route>

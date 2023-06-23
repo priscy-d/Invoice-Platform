@@ -157,12 +157,7 @@ const CreateInvoice = () => {
           <Button variant="success" type="submit" className="text-white">
             Submit
           </Button>
-          <Button
-            variant="outline-light"
-            type="button"
-            className="me-3 text-dark">
-            Preview
-          </Button>
+          
         </Col>
       </Row>
     </Container>
