@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../pagination";
-import { alignPropType } from "react-bootstrap/esm/types";
+
 
 
 const Items = () => {

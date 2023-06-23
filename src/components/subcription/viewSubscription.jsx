@@ -1,32 +1,37 @@
 import React from "react";
 import {
-  Badge,
+  
   Button,
   Col,
   Container,
   Row,
+  
   Card,
   Dropdown,
   Table,
 } from "react-bootstrap";
 import { BsThreeDots } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
-const CreateInvoice = () => {
+const ViewSubscription = () => {
+  const navigate = useNavigate();
+
   return (
     <Container className="main mt-5">
       <Row>
-        <Col md={10}>
-          <h2 className="mb-3">
-            Invoice: INV-001
-            <Badge className="mx-2 statusheight" pill text="danger" bg="light">
-              <span className="status">sent</span>
-            </Badge>
-          </h2>
+        <Col md={9}>
+          <h2 className="mb-3">Subscription:SUB-001</h2>
         </Col>
-        <Col md={2} className="d-flex flex-row">
+        <Col md={3} className="d-flex flex-row">
           <div className="me-2">
-            <Button variant="success" className="text-white">
-              Edit
+            <Button
+              variant="success"
+              className="text-white"
+              onClick={() =>
+                navigate("/invoice-platform/subscriptions/create-subscription")
+              }
+            >
+              New Subscription
             </Button>
           </div>
           <div>
@@ -36,8 +41,8 @@ const CreateInvoice = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
+                <Dropdown.Item eventKey="2">Customer statement</Dropdown.Item>
+                <Dropdown.Item eventKey="3">Edit</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
               </Dropdown.Menu>
@@ -190,4 +195,4 @@ const CreateInvoice = () => {
   );
 };
 
-export default CreateInvoice;
+export default ViewSubscription;

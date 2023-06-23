@@ -5,6 +5,8 @@ import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
 import { BsArchive, BsFillPersonPlusFill } from "react-icons/bs";
+import { MdSubscriptions } from "react-icons/md";
+
 
 function Sidebar() {
   return (
@@ -20,9 +22,10 @@ function Sidebar() {
         </Col>
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
-            <h5>
+            <h3 className="companyName">Generis</h3>
+            <h6>
               Hi, <b>User</b>
-            </h5>
+            </h6>
             <Link to="dashboard" className="nav-items mx-2 ">
               <AiOutlineDashboard /> <p className="mx-2 text">Dashboard</p>
             </Link>
@@ -34,6 +37,9 @@ function Sidebar() {
             </Link>
             <Link to="customers" className="nav-items mx-2 ">
               <BsFillPersonPlusFill /> <p className="mx-2 text">Customers</p>
+            </Link>
+            <Link to="subscriptions" className="nav-items mx-2 ">
+              <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
         </Col>
