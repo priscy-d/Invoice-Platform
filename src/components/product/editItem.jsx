@@ -20,9 +20,9 @@ const EditProduct = () => {
   useEffect(() => {
     const getProductById = async () => {
       try {
-        const response = await fetch(`http://0.0.0.0:8081/products/${productId}`);
+        const response = await fetch(`http://0.0.0.0:8082/products/${productId}`);
         const data = await response.json();
-        setProduct(data);
+        setProduct(data.data);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -43,13 +43,13 @@ const EditProduct = () => {
     const updateProduct = async () => {
       try {
         await fetch(`/${id}`, {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(product),
         });
-        navigate("/products"); // Redirect back to the product list page after updating
+        navigate("/invoice-platform/products"); // Redirect back to the product list page after updating
       } catch (error) {
         console.log(error);
       }
