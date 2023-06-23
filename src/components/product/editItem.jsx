@@ -43,7 +43,7 @@ const EditProduct = () => {
     const updateProduct = async () => {
       try {
         await fetch(`/${id}`, {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
