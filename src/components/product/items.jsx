@@ -27,7 +27,7 @@ const Items = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(18);
+  const [recordsPerPage] = useState(15);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const data = filteredProducts?.slice(indexOfFirstRecord, indexOfLastRecord);
