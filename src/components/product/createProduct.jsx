@@ -19,7 +19,7 @@ const CreateProduct = () => {
       const response = await BASE_URL.post("/products", {
         productName: productName,
         description: description,
-        isRecurring: type,
+        productState: type,
         unitPrice: parseFloat(unitPrice),
         recurringPeriod: 4,
       });

@@ -40,8 +40,7 @@ const Invoices = () => {
       <Form.Control
         type="text"
         placeholder="search"
-        className="my-4 search-input"
-      ></Form.Control>
+        className="my-4 search-input"></Form.Control>
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
@@ -54,11 +53,9 @@ const Invoices = () => {
         </thead>
         <tbody>
           <tr
-
-            onClick={() => navigate("/invoice-platform/invoices/view-invoice")}>
-            
-
-          </tr>
+            onClick={() =>
+              navigate("/invoice-platform/invoices/view-invoice")
+            }></tr>
         </tbody>
       </Table>
     </Container>

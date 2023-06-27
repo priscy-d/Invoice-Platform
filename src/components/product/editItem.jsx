@@ -1,40 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Row, Form } from "react-bootstrap";
+import { Button, Col, Container, Row, Form, Dropdown } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BsThreeDots } from "react-icons/bs";
 
 const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState({
-    id: "",
-    productName: "",
-    description: "",
-    unitPrice: "",
-    isRecurring: "",
-  });
+  const [productName, setProductName] = useState("");
+  const [description, setDescription] = useState("");
+  const [unitPrice, setUnitPrice] = useState("");
+  const [isRecurring, setIsRecurring] = useState("");
 
-  const productId = localStorage.getItem('productId')
-
+  const productId = localStorage.getItem("productId");
   useEffect(() => {
     const getProductById = async () => {
       try {
-        const response = await fetch(`http://0.0.0.0:8082/products/${productId}`);
+        const response = await fetch(
+          `http://0.0.0.0:8080/products/${productId}`
+        );
         const data = await response.json();
-        setProduct(data.data);
+        setProductName(data.data.productName);
+        setDescription(data.data.description);
+        setUnitPrice(data.data.unitPrice);
+        setIsRecurring(data.data.isRecurring);
         console.log(data);
       } catch (error) {
         console.log(error);
-        
       }
     };
     getProductById();
   }, [id]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+  const handleProductNameChange = (e) => {
+    setProductName(e.target.value);
+  };
+  const handleProductDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleProductUnitPriceChange = (e) => {
+    setUnitPrice(e.target.value);
+  };
+  const handleProductIsRecurringChange = (e) => {
+    setIsRecurring(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -42,14 +52,38 @@ const EditProduct = () => {
 
     const updateProduct = async () => {
       try {
-        await fetch(`/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(product),
-        });
-        navigate("/invoice-platform/products"); // Redirect back to the product list page after updating
+        const response = await fetch(
+          `http://0.0.0.0:8080/products/${productId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productName: productName,
+              description: description,
+              isRecurring: isRecurring,
+              unitPrice: unitPrice,
+            }),
+          }
+        );
+        navigate("/invoice-platform/products");
+        console.log(response, "ama");
+
+        if (response.status === 200) {
+          toast.success("product updated successfully", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+          });
+        } else {
+          toast.success("Failed to update product", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            type: "error",
+          });
+        }
+
+        // Redirect back to the product list page after updating
       } catch (error) {
         console.log(error);
       }
@@ -63,6 +97,13 @@ const EditProduct = () => {
       <Row>
         <Col md={8}>
           <h2 className="mb-3">Edit Product</h2>
+        </Col>
+        <Col md={2}>
+         
+            
+                <Button variant="light">Delete</Button>
+              
+        
         </Col>
       </Row>
 
@@ -79,8 +120,10 @@ const EditProduct = () => {
               md={11}>
               <Form.Label>Type</Form.Label>
 
-              <Form.Select className="w-50" defaultValue={product.isRecurring}
-            onChange={handleInputChange}>
+              <Form.Select
+                className="w-50"
+                value={isRecurring}
+                onChange={handleProductIsRecurringChange}>
                 <option value={"RECURRING"}>Recurring</option>
                 <option selected value={"ONE_TIME"}>
                   One-Time
@@ -93,8 +136,12 @@ const EditProduct = () => {
               <Col md={6}>
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Product Name</Form.Label>
-                  <Form.Control type="text" defaultValue={product.productName}
-            onChange={handleInputChange}/>
+                  <Form.Control
+                    value={productName}
+                    type="text"
+                    // defaultValue={product.productName}
+                    onChange={handleProductNameChange}
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -102,8 +149,12 @@ const EditProduct = () => {
 
           <Form.Group className="mb-3" controlId="formGridAddress1">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={5} defaultValue={product.description}
-            onChange={handleInputChange} />
+            <Form.Control
+              as="textarea"
+              rows={5}
+              value={description}
+              onChange={handleProductDescriptionChange}
+            />
           </Form.Group>
         </Col>
       </Row>
@@ -121,16 +172,22 @@ const EditProduct = () => {
               <Form.Label className="w=25" md={6}>
                 Unit Price
               </Form.Label>
-              <Form.Control type="text" defaultValue={product.unitPrice}
-            onChange={handleInputChange} />
+              <Form.Control
+                type="text"
+                value={unitPrice}
+                onChange={handleProductUnitPriceChange}
+              />
             </Form.Group>
           </Row>
         </Col>
       </Row>
       <Row className="my-5">
         <Col md={10} className="d-flex flex-row-reverse">
-          <Button variant="success" type="submit" className="text-white" onClick={handleSubmit}>
-            Submit
+          <Button
+            variant="success"
+            className="text-white"
+            onClick={handleSubmit}>
+            Update
           </Button>
         </Col>
       </Row>

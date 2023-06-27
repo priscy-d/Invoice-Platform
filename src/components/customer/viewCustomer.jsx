@@ -29,8 +29,7 @@ const ViewCustomer = () => {
               className="text-white"
               onClick={() =>
                 navigate("/invoice-platform/invoices/create-invoice")
-              }
-            >
+              }>
               New Invoice
             </Button>
           </div>

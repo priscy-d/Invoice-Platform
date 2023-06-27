@@ -11,6 +11,9 @@ import {
 import CreatableSelect from "react-select/creatable";
 import { countryOptions, taxOptions } from "../../data";
 import Select from "react-select";
+import { BASE_URL } from "../../constants/BASE_URL";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CreateInvoice = () => {
   const [customers, setCustomers] = useState([]);
@@ -18,14 +21,15 @@ const CreateInvoice = () => {
   const [products, setProducts] = useState([]);
   const [productId, setProductId] = useState(null);
 
-  const toIds = (e) => {
-    return e.reduce((ac, ab) => {
-      ac.push(ab.id);
-      return ac;
-    }, []);
-  };
+  const [title, setTitle] = useState();
+  const [subHeading, setSubHeading] = useState();
+  const [dueDate, setDueDate] = useState();
+  const [customerId, setCustomerId] = useState();
+  const [currency, setCurrency] = useState();
+  const [tax, setTax] = useState();
+  const [discount, setDiscount] = useState();
 
-  let customerId = [];
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8082/customers")
@@ -59,10 +63,37 @@ const CreateInvoice = () => {
     setProductId(proId);
   };
 
-  const handleCreateInvoice = (e) => {
-    e.preventDefault();
+  const handleCreateInvoice = async (e) => {
+    try {
+      const response = await BASE_URL.post("/invoices", {
+        setTitle: title,
+        setSubHeading: subHeading,
+        setDdueDate: dueDate,
+        setCustomerId: customerId,
+        setProductId: productId,
+        setCurrency: currency,
+        setTax: tax,
+        setDiscount: discount,
+      });
+      console.log(response);
+      if (response.data.message === "Success") {
+        toast.success("Customer Created successfully", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+        });
+      } else {
+        toast.success("Failed to create customer", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          type: "error",
+        });
+      }
 
-    console.log(productId);
+      navigate("/invoice-platform/invoices");
+    } catch (error) {
+      console.log(error);
+    }
+    e.preventDefault();
   };
   return (
     <Container className="main mt-5">
@@ -81,13 +112,19 @@ const CreateInvoice = () => {
             <Col className="mb-3" md={6}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" />
+                <Form.Control
+                  type="text"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
               </Form.Group>
             </Col>
             <Col className="mb-3" md={6}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Subheading</Form.Label>
-                <Form.Control type="email" />
+                <Form.Control
+                  type="email"
+                  onChange={(e) => setSubHeading(e.target.value)}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -101,9 +138,8 @@ const CreateInvoice = () => {
           <Row className="mb-3">
             <Col>
               <Form.Group controlId="formGridPassword" className="my-3">
-                <Form.Label>Customer ID</Form.Label>
-                {/* <CreatableSelect isClearable options={taxOptions}
-                 /> */}
+                <Form.Label>Customer Name</Form.Label>
+
                 <FormSelect>
                   {customers?.map((customer, i) => {
                     return (
@@ -112,6 +148,7 @@ const CreateInvoice = () => {
                       </option>
                     );
                   })}
+                  onChange={(e) => setCustomerId(e.target.value)}
                 </FormSelect>
               </Form.Group>
             </Col>
@@ -136,6 +173,7 @@ const CreateInvoice = () => {
                     type="date"
                     placeholder="start date"
                     id="date"
+                    onChange={(e) => setDueDate(e.target.value)}
                   />
                 </Form.Group>
               </Form.Group>
@@ -151,7 +189,7 @@ const CreateInvoice = () => {
               md={6}
               controlId="formGridPassword"
               className="my-3">
-              <Form.Label>Product Name</Form.Label>
+              <Form.Label> Select Product </Form.Label>
               <Select
                 closeMenuOnSelect={false}
                 isMulti
@@ -160,15 +198,6 @@ const CreateInvoice = () => {
                 onChange={selectProductName}
                 options={allProducts}
               />
-              {/* <FormSelect>
-                {products?.map((product, i) => {
-                  return (
-                    <option value={product?.name} key={i}>
-                      {product?.productName}
-                    </option>
-                  );
-                })}
-              </FormSelect> */}
             </Form.Group>
           </Row>
         </Col>
@@ -182,9 +211,13 @@ const CreateInvoice = () => {
             <Table>
               <thead>
                 <tr>
-                  <td>Currency</td>
-                  <td>Tax</td>
-                  <td>Discount</td>
+                  <td onChange={(e) => setCurrency(e.target.value)}>
+                    Currency
+                  </td>
+                  <td onChange={(e) => setTax(e.target.value)}>Tax</td>
+                  <td onChange={(e) => setDiscount(e.target.value)}>
+                    Discount
+                  </td>
                 </tr>
               </thead>
               <tbody>

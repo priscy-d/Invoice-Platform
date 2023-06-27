@@ -6,21 +6,24 @@ import Pagination from "../pagination";
 const Customers = () => {
   const navigate = useNavigate();
 
- 
+  // "http://localhost:8080/customers"
 
   const handleSubmit = () => {
     navigate("/invoice-platform/customers/create-customer");
   };
   const [customers, setCustomers] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:8082/customers")
+    fetch("http://localhost:8080/customers")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setCustomers(data?.data);
+        const sortedCustomers = data?.data.sort((a, b) => {
+          return new Date(b.createdDate) - new Date(a.createdDate);
+        });
+        setCustomers(sortedCustomers);
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log("Error:", error);
       });
   }, []);
 
@@ -31,9 +34,9 @@ const Customers = () => {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const data = filteredCustomers?.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = filteredCustomers? Math.ceil(filteredCustomers?.length / recordsPerPage) : 1;
-
-
+  const nPages = filteredCustomers
+    ? Math.ceil(filteredCustomers?.length / recordsPerPage)
+    : 1;
 
   const handleSearchChange = (event) => {
     const query = event.target.value;
@@ -110,14 +113,13 @@ const Customers = () => {
               <td>{customer.accountInfo}</td>
             </tr>
           ))}
-          
         </tbody>
       </Table>
       <Pagination
-          nPages={nPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Container>
   );
 };
