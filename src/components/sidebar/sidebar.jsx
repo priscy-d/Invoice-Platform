@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Stack, Button } from "react-bootstrap";
+import { Col, Row, Stack, Button, Offcanvas, Form } from "react-bootstrap";
 import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
 import { FaFileInvoice } from "react-icons/fa";
-import { BsArchive, BsFillPersonPlusFill } from "react-icons/bs";
+import {
+  BsArchive,
+  BsFillPersonPlusFill,
+  BsCurrencyDollar,
+} from "react-icons/bs";
 import { MdSubscriptions } from "react-icons/md";
 import Image from "react-bootstrap/Image";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 function Sidebar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div className="sidebar">
       <Row>
@@ -19,7 +28,7 @@ function Sidebar() {
             <BiUserCircle className="icon" />
             <BiSearchAlt2 className="icon" />
             <BiNotification className="icon" />
-            <AiOutlineSetting className="icon" />
+            <AiOutlineSetting className="icon" onClick={handleShow} />
           </Stack>
         </Col>
         <Col className="large-section pt-5 px-2">
@@ -44,6 +53,28 @@ function Sidebar() {
               <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
+          <Offcanvas
+            show={show}
+            onHide={handleClose}
+            scroll={true}
+            backdrop={false}
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>
+                <AiOutlineSetting /> Setting
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Form.Control
+                type="text"
+                placeholder="search"
+                className="my-4 search-input"
+              ></Form.Control>
+              <Link to="settings\currencies" className="nav-items mx-2 ">
+                <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
+              </Link>
+            </Offcanvas.Body>
+          </Offcanvas>
         </Col>
       </Row>
     </div>

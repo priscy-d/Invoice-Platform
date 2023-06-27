@@ -21,6 +21,8 @@ import ViewCustomer from "./components/customer/viewCustomer";
 import Subscription from "./components/subcription/subscription";
 import ViewSubscription from "./components/subcription/viewSubscription";
 import CreateSubscription from "./components/subcription/createsubscription";
+import CurrencySetting from "./components/settings/currency/currency";
+import NewCurrency from "./components/settings/currency/newcurrency";
 
 const Routing = () => {
   return (
@@ -63,6 +65,10 @@ const Routing = () => {
               path="create-Subscription"
               element={<CreateSubscription />}
             ></Route>
+          </Route>
+          <Route path="settings">
+            <Route path="currencies" element={<CurrencySetting />}></Route>
+            <Route path="new-currency" element={<NewCurrency />}></Route>
           </Route>
         </Route>
       </Routes>
