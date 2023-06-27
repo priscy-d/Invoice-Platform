@@ -9,6 +9,7 @@ import {
   BsFillPersonPlusFill,
   BsCurrencyDollar,
 } from "react-icons/bs";
+import { GrAddCircle } from "react-icons/gr";
 import { MdSubscriptions } from "react-icons/md";
 import Image from "react-bootstrap/Image";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -27,6 +28,7 @@ function Sidebar() {
           <Stack gap={4}>
             <BiUserCircle className="icon" />
             <BiSearchAlt2 className="icon" />
+            <GrAddCircle className="icon" />
             <BiNotification className="icon" />
             <AiOutlineSetting className="icon" onClick={handleShow} />
           </Stack>

@@ -21,8 +21,8 @@ import ViewCustomer from "./components/customer/viewCustomer";
 import Subscription from "./components/subcription/subscription";
 import ViewSubscription from "./components/subcription/viewSubscription";
 import CreateSubscription from "./components/subcription/createsubscription";
-import CurrencySetting from "./components/settings/currency/currency";
-import NewCurrency from "./components/settings/currency/newcurrency";
+import CurrencySetting from "./components/mini sidebar/settings/currency/currency";
+import NewCurrency from "./components/mini sidebar/settings/currency/newcurrency";
 
 const Routing = () => {
   return (
