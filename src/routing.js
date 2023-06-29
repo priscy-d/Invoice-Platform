@@ -23,6 +23,7 @@ import ViewSubscription from "./components/subcription/viewSubscription";
 import CreateSubscription from "./components/subcription/createsubscription";
 import CurrencySetting from "./components/mini sidebar/settings/currency/currency";
 import NewCurrency from "./components/mini sidebar/settings/currency/newcurrency";
+import PageNotFound from "./components/user/pagenotfound";
 
 const Routing = () => {
   return (
@@ -71,6 +72,7 @@ const Routing = () => {
             <Route path="new-currency" element={<NewCurrency />}></Route>
           </Route>
         </Route>
+        <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
     </Router>
   );

@@ -81,8 +81,7 @@ const Dashboard = () => {
       </Row>
       <Row>
         <Col md={6}>
-          {" "}
-          <Row className="my-5">
+          <Row className="my-5 ">
             <h5>Cash flow chart</h5>
             <p> Total amount made and due customers</p>
             <hr />
@@ -110,8 +109,8 @@ const Dashboard = () => {
         </Col>
         <Col md={6}>
           <Row className="my-5">
-            <h5>Cash flow chart</h5>
-            <p> Total amount made and due customers</p>
+            <h5>Customer acquisition</h5>
+            <p> Customer acquisition flow per month</p>
             <hr />
             <Col md={10}>
               <div className="graph">
