@@ -83,7 +83,7 @@ h1 {
 }
 
 .graph {
-  width: 90%;
+  width: 100%;
 }
 .dough-graph {
   width: 70%;
@@ -131,4 +131,8 @@ h1 {
   font-size: map-get($font_sizes, sub-header);
   color: $call_to_action;
   font-weight: map-get($font_weights, bold);
+}
+.offcanvas {
+  width: 16.67% !important;
+  background-color: $background_color;
 }

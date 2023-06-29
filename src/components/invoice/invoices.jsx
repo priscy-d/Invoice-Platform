@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row, Table, Form, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import MaterialCheckbox from "@mui/material/Checkbox";
 
 const Invoices = () => {
   const navigate = useNavigate();
@@ -45,6 +46,9 @@ const Invoices = () => {
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
+            <th>
+              <MaterialCheckbox size="small" />
+            </th>
             <th>Due date</th>
             <th>Status</th>
             <th>Customer</th>
@@ -56,6 +60,9 @@ const Invoices = () => {
           <tr
             onClick={() => navigate("/invoice-platform/invoices/view-invoice")}
           >
+            <td>
+              <MaterialCheckbox size="small" />
+            </td>
             <td>18 May 2023</td>
             <td>Sent</td>
             <td>Cobby</td>

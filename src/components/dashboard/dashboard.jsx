@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut, Line, PolarArea } from "react-chartjs-2";
-import { Data, TotalByType , transactions} from "../../data";
+import { Data, TotalByType, transactions } from "../../data";
 import { Chart as ChartJS } from "chart.js/auto";
 
 const Dashboard = () => {
@@ -79,31 +79,64 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row className="my-5">
-        <h5>Cash flow chart</h5>
-        <p> Total amount made and due customers</p>
-        <hr />
-        <Col md={10}>
-          <div className="graph">
-            <Bar data={data} />
-          </div>
+      <Row>
+        <Col md={6}>
+          {" "}
+          <Row className="my-5">
+            <h5>Cash flow chart</h5>
+            <p> Total amount made and due customers</p>
+            <hr />
+            <Col md={10}>
+              <div className="graph">
+                <Bar data={data} />
+              </div>
+            </Col>
+            <Col className="my-5">
+              <div>
+                <h5>Income</h5>
+                <p>
+                  <b>¢2400</b>
+                </p>
+              </div>
+              <div>
+                <h5>Unpaid</h5>
+                <p>
+                  {" "}
+                  <b>¢2400</b>
+                </p>
+              </div>
+            </Col>
+          </Row>
         </Col>
-        <Col className="my-5">
-          <div>
-            <h5>Income</h5>
-            <p>
-              <b>¢2400</b>
-            </p>
-          </div>
-          <div>
-            <h5>Unpaid</h5>
-            <p>
-              {" "}
-              <b>¢2400</b>
-            </p>
-          </div>
+        <Col md={6}>
+          <Row className="my-5">
+            <h5>Cash flow chart</h5>
+            <p> Total amount made and due customers</p>
+            <hr />
+            <Col md={10}>
+              <div className="graph">
+                <Line data={data} />
+              </div>
+            </Col>
+            <Col className="my-5">
+              <div>
+                <h5>Income</h5>
+                <p>
+                  <b>¢2400</b>
+                </p>
+              </div>
+              <div>
+                <h5>Unpaid</h5>
+                <p>
+                  {" "}
+                  <b>¢2400</b>
+                </p>
+              </div>
+            </Col>
+          </Row>
         </Col>
       </Row>
+
       <Row className="my-3">
         <Col className="mt-2">
           <Card className="p-3 bg-light border-light">
@@ -127,31 +160,7 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row className="my-5">
-        <h5>Cash flow chart</h5>
-        <p> Total amount made and due customers</p>
-        <hr />
-        <Col md={10}>
-          <div className="graph">
-            <Line data={data} />
-          </div>
-        </Col>
-        <Col className="my-5">
-          <div>
-            <h5>Income</h5>
-            <p>
-              <b>¢2400</b>
-            </p>
-          </div>
-          <div>
-            <h5>Unpaid</h5>
-            <p>
-              {" "}
-              <b>¢2400</b>
-            </p>
-          </div>
-        </Col>
-      </Row>
+
       <Row className="my-5">
         <Col md={6} className="mt-2">
           <h5>Income by type</h5>

@@ -32,6 +32,29 @@ function Sidebar() {
             <BiNotification className="icon" />
             <AiOutlineSetting className="icon" onClick={handleShow} />
           </Stack>
+          <Offcanvas
+            show={show}
+            onHide={handleClose}
+            scroll={true}
+            backdrop={false}
+            className="offcanvas pt-5 px-2"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>
+                <AiOutlineSetting /> Setting
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Form.Control
+                type="text"
+                placeholder="search"
+                className="my-4 search-input"
+              ></Form.Control>
+              <Link to="settings\currencies" className="nav-items mx-2 ">
+                <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
+              </Link>
+            </Offcanvas.Body>
+          </Offcanvas>
         </Col>
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
@@ -55,28 +78,6 @@ function Sidebar() {
               <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>
             </Link>
           </Stack>
-          <Offcanvas
-            show={show}
-            onHide={handleClose}
-            scroll={true}
-            backdrop={false}
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>
-                <AiOutlineSetting /> Setting
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Form.Control
-                type="text"
-                placeholder="search"
-                className="my-4 search-input"
-              ></Form.Control>
-              <Link to="settings\currencies" className="nav-items mx-2 ">
-                <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
-              </Link>
-            </Offcanvas.Body>
-          </Offcanvas>
         </Col>
       </Row>
     </div>
