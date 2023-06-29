@@ -5,8 +5,29 @@ import Pagination from "../pagination";
 
 import { AiOutlineDelete } from "react-icons/ai";
 
-const Items = () => {
-  const handleDelete = async (id) => {};
+
+const Items = ({id}) => {
+
+
+  const handleDelete = async () => {
+    const url = `http://0.0.0.0:8080/products/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        console.log(`Product deleted successfully.`);
+      } else {
+        const errorText = await response.text();
+        
+        
+      }
+    } catch (error) {
+      console.error(`Failed to delete product. Error: ${error.message}`);
+    }
+  };
+  
 
   const navigate = useNavigate();
   const handleSubmit = () => {

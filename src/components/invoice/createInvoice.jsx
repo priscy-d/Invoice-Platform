@@ -181,27 +181,7 @@ const CreateInvoice = () => {
           </Row>
         </Col>
       </Row>
-      <Row className="my-3">
-        <Col md={10} className="mt-2">
-          <Row className="mb-3">
-            <Form.Group
-              as={Col}
-              md={6}
-              controlId="formGridPassword"
-              className="my-3">
-              <Form.Label> Select Product </Form.Label>
-              <Select
-                closeMenuOnSelect={false}
-                isMulti
-                className="selectionPicker"
-                isSearchable
-                onChange={selectProductName}
-                options={allProducts}
-              />
-            </Form.Group>
-          </Row>
-        </Col>
-      </Row>
+      
       <Row className="my-3">
         <Col md={10} className="mt-2">
           <h5>Product information</h5>
@@ -211,10 +191,13 @@ const CreateInvoice = () => {
             <Table>
               <thead>
                 <tr>
-                  <td onChange={(e) => setCurrency(e.target.value)}>
+                <td style={{ width: "25em"}}onChange={(e) => setProducts(e.target.value)}>
+                    Product
+                  </td>
+                  <td style={{ width: "18em"}}onChange={(e) => setCurrency(e.target.value)}>
                     Currency
                   </td>
-                  <td onChange={(e) => setTax(e.target.value)}>Tax</td>
+                  <td style={{ width: "18em"}} onChange={(e) => setTax(e.target.value)}>Tax</td>
                   <td onChange={(e) => setDiscount(e.target.value)}>
                     Discount
                   </td>
@@ -222,6 +205,17 @@ const CreateInvoice = () => {
               </thead>
               <tbody>
                 <tr>
+                <td>
+                    <CreatableSelect
+                      isClearable
+                      options={allProducts}
+                      isSearchable
+                      onChange={selectProductName}
+                      closeMenuOnSelect={false}
+                      isMulti
+                      className="selectionPicker "
+                    />
+                  </td>
                   <td>
                     <CreatableSelect
                       isClearable
@@ -233,7 +227,7 @@ const CreateInvoice = () => {
                     <CreatableSelect isClearable options={taxOptions} />
                   </td>
                   <td>
-                    <Form.Control type="text" />
+                    <Form.Control type="text"  />
                   </td>
                 </tr>
               </tbody>
@@ -243,8 +237,8 @@ const CreateInvoice = () => {
           </Row>
         </Col>
       </Row>
-      <Row className="my-5"></Row>
-      <Row className="my-5">
+      
+      <Row className="my-3">
         <Col md={10} className="d-flex flex-row-reverse">
           <Button
             variant="success"

@@ -186,26 +186,12 @@ const CreateCustomer = () => {
                 controlId="formGridPassword"
                 className="my-3">
                 <Form.Label>Country</Form.Label>
-                <DropdownButton
-              className="w=25"
-              variant="outline-light"
-              title={countryName}>
-              {Countries.map((country, key) => {
-                return (
-                  <DropdownItem
-                    key={key}
-                    onClick={() => {
-                      setCountryName(country.name);
-                      setCountry(country);
-                      setCurrency(country.currencyType);
-                    }}>
-                    {country.name}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownButton>
+                <Form.Control
+                  className="form-fields"
+                  type="text"
+                  onChange={(e) => setCountry(e.target.value)}
+                />
               </Form.Group>
-
               <Form.Group
                 as={Col}
                 controlId="formGridPassword"
