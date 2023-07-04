@@ -1,33 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
+import { Button, Col, Container, Row, Form, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import MaterialCheckbox from "@mui/material/Checkbox";
 import Pagination from "../pagination";
+import DeleteProductModal from "./deleteProductModal";
 
 import { AiOutlineDelete } from "react-icons/ai";
 
-
-const Items = ({id}) => {
-
-
-  const handleDelete = async () => {
-    const url = `http://0.0.0.0:8080/products/${id}`;
-    try {
-      const response = await fetch(url, {
-        method: 'DELETE',
-      });
-  
-      if (response.ok) {
-        console.log(`Product deleted successfully.`);
-      } else {
-        const errorText = await response.text();
-        
-        
-      }
-    } catch (error) {
-      console.error(`Failed to delete product. Error: ${error.message}`);
-    }
-  };
-  
+const Items = () => {
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const navigate = useNavigate();
   const handleSubmit = () => {
@@ -48,7 +29,7 @@ const Items = ({id}) => {
       .catch((error) => {
         console.log("Error:", error);
       });
-  }, []);
+  });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -64,7 +45,7 @@ const Items = ({id}) => {
   const action = () => {
     return (
       <Button
-        onClick={handleDelete}
+        onClick={() => setDeleteModal(true)}
         variant="danger"
         style={{ float: "right" }}>
         <AiOutlineDelete />
@@ -95,6 +76,7 @@ const Items = ({id}) => {
 
   return (
     <Container className="mt-5">
+      <DeleteProductModal show={deleteModal} setShow={setDeleteModal} />
       <Row>
         <Col md={10}>
           <h2>Product</h2>
@@ -111,9 +93,13 @@ const Items = ({id}) => {
         className="my-4 search-input"
         value={searchQuery}
         onChange={handleSearchChange}></Form.Control>
+
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
+            <th>
+              <MaterialCheckbox size="small" />
+            </th>
             <th>Name</th>
             <th>Type</th>
             <th>Sale Price</th>
@@ -122,6 +108,9 @@ const Items = ({id}) => {
         <tbody>
           {data?.map((product) => (
             <tr>
+              <td>
+                <MaterialCheckbox size="small" />
+              </td>
               <td
                 key={product.id}
                 onClick={() => {
@@ -132,7 +121,11 @@ const Items = ({id}) => {
               </td>
               <td>{product.productState}</td>
 
-              <td onMouseEnter={() => setShowAction(true)}>
+              <td
+                onMouseEnter={() => {
+                  setShowAction(true);
+                  localStorage.setItem("productId", product.id);
+                }}>
                 {product.unitPrice} {showAction ? action() : null}
               </td>
             </tr>

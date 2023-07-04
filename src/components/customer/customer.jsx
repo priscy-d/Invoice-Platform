@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../pagination";
+import MaterialCheckbox from "@mui/material/Checkbox";
 
 const Customers = () => {
   const navigate = useNavigate();
@@ -49,8 +50,8 @@ const Customers = () => {
           customer.email.toLowerCase().includes(query.toLowerCase())) ||
         (customer.account &&
           customer.account.toLowerCase().includes(query.toLowerCase())) ||
-        (customer.idNumber &&
-          customer.idNumber.toLowerCase().includes(query.toLowerCase())) ||
+        (customer.address &&
+          customer.address.toLowerCase().includes(query.toLowerCase())) ||
         (customer.accountInfo &&
           customer.accountInfo.toLowerCase().includes(query.toLowerCase()))
     );
@@ -95,6 +96,9 @@ const Customers = () => {
       <Table hover bordered size="sm">
         <thead className="table-light">
           <tr>
+            <th>
+              <MaterialCheckbox size="small" />
+            </th>
             <th>Name</th>
             <th>Email</th>
             <th>Address</th>
@@ -104,6 +108,9 @@ const Customers = () => {
         <tbody>
           {data?.map((customer) => (
             <tr key={customer.id}>
+              <td>
+              <MaterialCheckbox size="small" />
+            </td>
               <td>{customer.name}</td>
               <td>{customer.email}</td>
               <td>

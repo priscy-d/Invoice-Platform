@@ -1,42 +1,10 @@
-import React, { useEffect, useState ,useRef} from "react";
+import React, { useState } from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
 import { Bar, Doughnut, Line, PolarArea } from "react-chartjs-2";
 import { Data, TotalByType, transactions } from "../../data";
 import { Chart as ChartJS } from "chart.js/auto";
-import { init } from "../../Keycloak";
 
-
-const Dashboard = () => {
-  const [data, setData] = useState({
-    labels: Data.map((info) => info.month),
-    datasets: [
-      {
-        label: "income",
-        data: Data.map((info) => info.income),
-      },
-      {
-        label: "unpaid",
-        data: Data.map((info) => info.unpaid),
-      },
-    ],
-  });
-  const [totalData, setTotalData] = useState({
-    labels: TotalByType.map((info) => info.name),
-    datasets: [
-      {
-        label: "income",
-        data: TotalByType.map((info) => info.total),
-      },
-    ],
-  });
-  let isRun = useRef(false) 
-  useEffect(() => {
-    if(isRun.current) return;
-        isRun.current = true; 
-    init()
-
-  },[])
-
+const Notifications = () => {
   return (
     <Container className="main mt-5">
       <Row>
@@ -88,64 +56,31 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <Col md={6}>
-          {" "}
-          <Row className="my-5">
-            <h5>Cash flow chart</h5>
-            <p> Total amount made and due customers</p>
-            <hr />
-            <Col md={10}>
-              <div className="graph">
-                <Bar data={data} />
-              </div>
-            </Col>
-            <Col className="my-5">
-              <div>
-                <h5>Income</h5>
-                <p>
-                  <b>¢2400</b>
-                </p>
-              </div>
-              <div>
-                <h5>Unpaid</h5>
-                <p>
-                  {" "}
-                  <b>¢2400</b>
-                </p>
-              </div>
-            </Col>
-          </Row>
+      <Row className="my-5">
+        <h5>Cash flow chart</h5>
+        <p> Total amount made and due customers</p>
+        <hr />
+        <Col md={10}>
+          <div className="graph">
+            <Bar data={data} />
+          </div>
         </Col>
-        <Col md={6}>
-          <Row className="my-5">
-            <h5>Cash flow chart</h5>
-            <p> Total amount made and due customers</p>
-            <hr />
-            <Col md={10}>
-              <div className="graph">
-                <Line data={data} />
-              </div>
-            </Col>
-            <Col className="my-5">
-              <div>
-                <h5>Income</h5>
-                <p>
-                  <b>¢2400</b>
-                </p>
-              </div>
-              <div>
-                <h5>Unpaid</h5>
-                <p>
-                  {" "}
-                  <b>¢2400</b>
-                </p>
-              </div>
-            </Col>
-          </Row>
+        <Col className="my-5">
+          <div>
+            <h5>Income</h5>
+            <p>
+              <b>¢2400</b>
+            </p>
+          </div>
+          <div>
+            <h5>Unpaid</h5>
+            <p>
+              {" "}
+              <b>¢2400</b>
+            </p>
+          </div>
         </Col>
       </Row>
-
       <Row className="my-3">
         <Col className="mt-2">
           <Card className="p-3 bg-light border-light">
@@ -169,7 +104,31 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-
+      <Row className="my-5">
+        <h5>Cash flow chart</h5>
+        <p> Total amount made and due customers</p>
+        <hr />
+        <Col md={10}>
+          <div className="graph">
+            <Line data={data} />
+          </div>
+        </Col>
+        <Col className="my-5">
+          <div>
+            <h5>Income</h5>
+            <p>
+              <b>¢2400</b>
+            </p>
+          </div>
+          <div>
+            <h5>Unpaid</h5>
+            <p>
+              {" "}
+              <b>¢2400</b>
+            </p>
+          </div>
+        </Col>
+      </Row>
       <Row className="my-5">
         <Col md={6} className="mt-2">
           <h5>Income by type</h5>
@@ -192,4 +151,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Notifications;

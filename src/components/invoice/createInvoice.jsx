@@ -14,78 +14,100 @@ import Select from "react-select";
 import { BASE_URL } from "../../constants/BASE_URL";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { objectsToLabel } from "../../Utils/service";
+import moment from "moment";
+import { GrFormAdd } from "react-icons/gr";
+import { prettyDOM } from "@testing-library/react";
 
-const CreateInvoice = () => {
+const CreateInvoice = (props) => {
   const [customers, setCustomers] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [productId, setProductId] = useState(null);
+  const [items, setItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [currency, setCurrency] = useState("");
+  const [currencies, setCurrencies] = useState([]);
+  const [tax, setTax] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
-  const [title, setTitle] = useState();
-  const [subHeading, setSubHeading] = useState();
-  const [dueDate, setDueDate] = useState();
-  const [customerId, setCustomerId] = useState();
-  const [currency, setCurrency] = useState();
-  const [tax, setTax] = useState();
-  const [discount, setDiscount] = useState();
+  const [title, setTitle] = useState("");
+  const [subHeading, setSubHeading] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [customerId, setCustomerId] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8082/customers")
+    fetch("http://localhost:8080/customers")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         setCustomers(data?.data);
       })
       .catch((error) => {
         console.log("Error", error);
       });
 
-    fetch("http://localhost:8082/products")
+    fetch("http://localhost:8080/products")
       .then((response) => response.json())
       .then((data) => {
-        const pro = data?.data.map((prod) => ({
-          label: prod.productName,
-          value: prod.id,
-        }));
-        setAllProducts(pro);
+        setItems(data?.data);
       })
+      .catch((error) => {
+        console.log("Error", error);
+      });
 
+    fetch("http://localhost:8080/currency")
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrencies(data?.data);
+      })
       .catch((error) => {
         console.log("Error", error);
       });
   }, []);
 
-  const selectProductName = (Id) => {
-    setProducts(Id);
-    const proId = Id.map((product) => product.value);
-    setProductId(proId);
+  const handleItemQuantityChange = (itemId, quantity) => {
+    const updatedItems = selectedItems.map((item) => {
+      if (item.itemId === itemId) {
+        return {
+          ...item,
+          quantity: quantity,
+        };
+      }
+      return item;
+    });
+    setSelectedItems(updatedItems);
   };
 
   const handleCreateInvoice = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await BASE_URL.post("/invoices", {
-        setTitle: title,
-        setSubHeading: subHeading,
-        setDdueDate: dueDate,
-        setCustomerId: customerId,
-        setProductId: productId,
-        setCurrency: currency,
-        setTax: tax,
-        setDiscount: discount,
-      });
-      console.log(response);
+      const invoiceItems = selectedItems.map((item) => ({
+        productId: item.itemId,
+        quantity: item.quantity,
+      }));
+
+      const invoiceData = {
+        title: title,
+        subHeading: subHeading,
+        dueDate: moment(dueDate, "YYYY-MM-DD").format("DD-MM-YYYY"),
+        customerId: customerId,
+        items: invoiceItems,
+        currency: currency,
+        tax: tax,
+        discount: discount,
+      };
+
+      const response = await BASE_URL.post("/invoices", invoiceData);
+
       if (response.data.message === "Success") {
-        toast.success("Customer Created successfully", {
+        toast.success("Invoice created successfully", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
       } else {
-        toast.success("Failed to create customer", {
+        toast.error("Failed to create invoice", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
-          type: "error",
         });
       }
 
@@ -93,8 +115,29 @@ const CreateInvoice = () => {
     } catch (error) {
       console.log(error);
     }
-    e.preventDefault();
   };
+  let id = 1;
+
+  const [column, setColumn] = useState([
+    { id: id, product: "", quantity: "", currency: "", tax: "", discount: "" },
+    
+  ]);
+
+  const addColumns = () => {
+    setColumn([
+      ...column,
+      {
+        id: id++,
+        product: "",
+        quantity: "",
+        currency: "",
+        tax: "",
+        discount: "",
+      },
+    ]);
+  };
+  console.log("coll ", typeof column, column, id);
+
   return (
     <Container className="main mt-5">
       <Row>
@@ -139,17 +182,15 @@ const CreateInvoice = () => {
             <Col>
               <Form.Group controlId="formGridPassword" className="my-3">
                 <Form.Label>Customer Name</Form.Label>
-
-                <FormSelect>
-                  {customers?.map((customer, i) => {
+                <Form.Select onChange={(e) => setCustomerId(e.target.value)}>
+                  {customers?.map((customer) => {
                     return (
-                      <option value={customer?.name} key={i}>
+                      <option value={customer.id} key={customer.id}>
                         {customer?.name}
                       </option>
                     );
                   })}
-                  onChange={(e) => setCustomerId(e.target.value)}
-                </FormSelect>
+                </Form.Select>
               </Form.Group>
             </Col>
             <Col>
@@ -181,55 +222,172 @@ const CreateInvoice = () => {
           </Row>
         </Col>
       </Row>
-      
+
       <Row className="my-3">
         <Col md={10} className="mt-2">
           <h5>Product information</h5>
 
           <hr />
+          <Row className="my-3">
+        <Col md={10} className=" d-flex flex-row-reverse">
+          <Button variant="success" onClick={addColumns}>Add product  <GrFormAdd  /></Button>
+         
+        </Col>
+      </Row>
           <Row className="mb-3">
             <Table>
               <thead>
                 <tr>
-                <td style={{ width: "25em"}}onChange={(e) => setProducts(e.target.value)}>
-                    Product
-                  </td>
-                  <td style={{ width: "18em"}}onChange={(e) => setCurrency(e.target.value)}>
-                    Currency
-                  </td>
-                  <td style={{ width: "18em"}} onChange={(e) => setTax(e.target.value)}>Tax</td>
-                  <td onChange={(e) => setDiscount(e.target.value)}>
-                    Discount
-                  </td>
+                  <td style={{ width: "25em" }}>Product</td>
+                  <td style={{ width: "8em" }}>Quantity</td>
+                  <td style={{ width: "25em" }}>currency</td>
+                  <td style={{ width: "18em" }}>Tax</td>
+                  <td style={{ width: "18em" }}>Discount</td>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                <td>
-                    <CreatableSelect
-                      isClearable
-                      options={allProducts}
-                      isSearchable
-                      onChange={selectProductName}
-                      closeMenuOnSelect={false}
-                      isMulti
-                      className="selectionPicker "
-                    />
-                  </td>
-                  <td>
-                    <CreatableSelect
-                      isClearable
-                      options={countryOptions}
-                      className="tableSelect"
-                    />
-                  </td>
-                  <td>
-                    <CreatableSelect isClearable options={taxOptions} />
-                  </td>
-                  <td>
-                    <Form.Control type="text"  />
-                  </td>
-                </tr>
+                {column?.map((row) => (
+                  <tr key={row.id}>
+                    <td>
+                      {" "}
+                      <Form.Control
+                        as="select"
+                        onChange={(e) => {
+                          const itemId = e.target.value;
+                          const item = items.find((item) => item.id === itemId);
+                          setSelectedItems([
+                            ...selectedItems,
+                            { itemId, quantity: 0 },
+                          ]);
+                        }}
+                        required>
+                        <option value="">Select a product</option>
+                        {items.length > 0 &&
+                          items.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.productName}
+                            </option>
+                          ))}
+                      </Form.Control>
+                    </td>
+                    <td>
+                    <Form.Control
+                        type="number"
+                        onChange={(e) => handleItemQuantityChange(e.target.value)}
+                        min={0}
+                      />
+                      </td>
+                    <td><Form.Group controlId="formGridEmail">
+                        <Form.Select
+                          onChange={(e) => {
+                            setCurrency(e.target.value);
+                          }}>
+                          {currencies?.map((oneCurrency) => {
+                            return (
+                              <option
+                                value={oneCurrency.id}
+                                key={oneCurrency.id}>
+                                {oneCurrency?.currencyCode}
+                              </option>
+                            );
+                          })}
+                        </Form.Select>
+                      </Form.Group></td>
+                    <td> <Form.Control
+                        type="number"
+                        onChange={(e) => setTax(e.target.value)}
+                        min={0}
+                      /></td>
+                    <td><Form.Control
+                        type="number"
+                        onChange={(e) => setDiscount(e.target.value)}
+                        min={0}
+                      /></td>
+                  </tr>
+                ))}
+                {column?.map((col) => {
+                  <tr key={col.id}>
+                    <td>
+                      <Form.Control
+                        as="select"
+                        value={col.product}
+                        onChange={(e) => {
+                          const itemId = e.target.value;
+                          const item = items.find((item) => item.id === itemId);
+                          setSelectedItems([
+                            ...selectedItems,
+                            { itemId, quantity: 0 },
+                          ]);
+                        }}
+                        required>
+                        <option value="">Select a product</option>
+                        {items.length > 0 &&
+                          items.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.productName}
+                            </option>
+                          ))}
+                      </Form.Control>
+                    </td>
+
+                    <td>
+                      {selectedItems.map((selectedItem, index) => (
+                        <Row key={index}>
+                          <Col>
+                            <Form.Group
+                              controlId={`quantity-${selectedItem.id}`}>
+                              <Form.Control
+                                type="number"
+                                value={col.quantity}
+                                min="1"
+                                // value={selectedItem.quantity}
+                                onChange={(e) =>
+                                  handleItemQuantityChange(
+                                    selectedItem.itemId,
+                                    parseInt(e.target.value)
+                                  )
+                                }
+                                required
+                              />
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      ))}
+                    </td>
+                    <td>
+                      <Form.Group controlId="formGridEmail">
+                        <Form.Select
+                          onChange={(e) => {
+                            setCurrency(e.target.value);
+                          }}>
+                          {currencies?.map((oneCurrency) => {
+                            return (
+                              <option
+                                value={oneCurrency.id}
+                                key={oneCurrency.id}>
+                                {oneCurrency?.currencyCode}
+                              </option>
+                            );
+                          })}
+                        </Form.Select>
+                      </Form.Group>
+                    </td>
+                    <td>
+                      <Form.Control
+                        type="number"
+                        onChange={(e) => setTax(e.target.value)}
+                        min={0}
+                      />
+                    </td>
+                    <td>
+                      <Form.Control
+                        type="number"
+                        onChange={(e) => setDiscount(e.target.value)}
+                        min={0}
+                      />
+                    </td>
+                  </tr>;
+                })}
               </tbody>
             </Table>
 
@@ -237,12 +395,12 @@ const CreateInvoice = () => {
           </Row>
         </Col>
       </Row>
-      
+     
+
       <Row className="my-3">
         <Col md={10} className="d-flex flex-row-reverse">
           <Button
             variant="success"
-            type="submit"
             className="text-white"
             onClick={handleCreateInvoice}>
             Submit

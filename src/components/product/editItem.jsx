@@ -12,7 +12,7 @@ const EditProduct = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
-  const [isRecurring, setIsRecurring] = useState("");
+  const [productState, setProductState] = useState("");
 
   const productId = localStorage.getItem("productId");
   useEffect(() => {
@@ -25,7 +25,7 @@ const EditProduct = () => {
         setProductName(data.data.productName);
         setDescription(data.data.description);
         setUnitPrice(data.data.unitPrice);
-        setIsRecurring(data.data.isRecurring);
+        setProductState(data.data.productState);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -44,7 +44,7 @@ const EditProduct = () => {
     setUnitPrice(e.target.value);
   };
   const handleProductIsRecurringChange = (e) => {
-    setIsRecurring(e.target.value);
+    setProductState(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -62,7 +62,7 @@ const EditProduct = () => {
             body: JSON.stringify({
               productName: productName,
               description: description,
-              isRecurring: isRecurring,
+              productState: productState,
               unitPrice: unitPrice,
             }),
           }
@@ -122,7 +122,7 @@ const EditProduct = () => {
 
               <Form.Select
                 className="w-50"
-                value={isRecurring}
+                value={productState}
                 onChange={handleProductIsRecurringChange}>
                 <option value={"RECURRING"}>Recurring</option>
                 <option selected value={"ONE_TIME"}>

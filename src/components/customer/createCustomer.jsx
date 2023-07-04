@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { Button, Col, Container, Row, Form , DropdownButton} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Container,
+  Row,
+  Form,
+  DropdownButton,
+} from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
 import { countryOptions, currencyOptions } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/BASE_URL";
-import { Countries } from "../../Utils/countries";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 const CreateCustomer = () => {
@@ -13,20 +19,32 @@ const CreateCustomer = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [taxNumber, setTaxNumber] = useState("");
-  const [country, setCountry] = useState(Countries[0]);
-  const [currency, setCurrency] = useState(Countries[0].currencyType);
-  const [countryName, setCountryName] = useState(Countries[0].name);
+  const [country, setCountry] = useState("");
+  const [currency, setCurrency] = useState("");
   const [city, setCity] = useState("");
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     return emailRegex.test(email);
   };
+  const [currencies, setCurrencies] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/currency")
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setCurrencies(data?.data);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }, []);
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
     const validationErrors = {};
 
@@ -42,7 +60,6 @@ const CreateCustomer = () => {
 
     if (!phone) {
       validationErrors.phone = "Phone is required.";
-
     }
 
     if (!taxNumber) {
@@ -54,9 +71,12 @@ const CreateCustomer = () => {
     }
 
     setName("");
+    setCurrency("");
     setEmail("");
     setPhone("");
     setTaxNumber("");
+    setCountry("");
+    setCity("");
     setErrors({});
     try {
       const response = await BASE_URL.post("/customers", {
@@ -64,37 +84,34 @@ const CreateCustomer = () => {
         email: email,
         phoneNumber: phone,
         taxNumber: taxNumber,
-        currency: country.currencyType,
-        country: country.name,
+        currency: currency,
+        country: country,
         city: city,
       });
-      console.log(response)
+      console.log(response);
+      
       if (response.data.message === "Success") {
         toast.success("Customer Created successfully", {
           position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000
-        })    
-      }else {
+          autoClose: 3000,
+        });
+      } else {
         toast.success("Failed to create customer", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
           type: "error",
         });
       }
-      
-      navigate('/invoice-platform/customers')
-      
+
+      navigate("/invoice-platform/customers");
     } catch (error) {
       console.log(error);
     }
-    
   };
-  
-       
 
   return (
     <Container className="main mt-5">
-      <Form >
+      <Form>
         <Row>
           <Col md={8}>
             <h2 className="mb-3">New Customer</h2>
@@ -114,10 +131,14 @@ const CreateCustomer = () => {
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                   />
-                  {errors.name && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.name}</span>}
+                  {errors.name && (
+                    <span style={{ color: "red", fontWeight: "bold" }}>
+                      {errors.name}
+                    </span>
+                  )}
                 </Form.Group>
               </Col>
-              <Col className="mb-3" md={6}>
+              <Col className="mb-3" md={3}>
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -125,11 +146,15 @@ const CreateCustomer = () => {
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  {errors.email && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.email}</span>}
+                  {errors.email && (
+                    <span style={{ color: "red", fontWeight: "bold" }}>
+                      {errors.email}
+                    </span>
+                  )}
                 </Form.Group>
               </Col>
 
-              <Col className="mb-3" md={6}>
+              <Col className="mb-3" md={3}>
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
@@ -137,7 +162,11 @@ const CreateCustomer = () => {
                     type="phone"
                     onChange={(e) => setPhone(e.target.value)}
                   />
-                   {errors.phone && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.phone}</span>}
+                  {errors.phone && (
+                    <span style={{ color: "red", fontWeight: "bold" }}>
+                      {errors.phone}
+                    </span>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -159,7 +188,11 @@ const CreateCustomer = () => {
                   type="text"
                   onChange={(e) => setTaxNumber(e.target.value)}
                 />
-                {errors.taxNumber && <span style={{ color: 'red', fontWeight: 'bold' }}>{errors.taxNumber}</span>}
+                {errors.taxNumber && (
+                  <span style={{ color: "red", fontWeight: "bold" }}>
+                    {errors.taxNumber}
+                  </span>
+                )}
               </Form.Group>
 
               <Form.Group
@@ -167,10 +200,15 @@ const CreateCustomer = () => {
                 controlId="formGridPassword"
                 className="my-3">
                 <Form.Label>Currency</Form.Label>
-               
-                <Button className="" disabled variant="outline-light">
-              {country.currencyType}value{currency}
-            </Button>
+                <Form.Select onChange={(e) => setCurrency(e.target.value)}>
+                  {currencies?.map((currency) => {
+                    return (
+                      <option value={currency?.id} key={currency.id}>
+                        {currency?.currencyName}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
               </Form.Group>
             </Row>
           </Col>
@@ -206,12 +244,15 @@ const CreateCustomer = () => {
             </Row>
           </Col>
         </Row>
-        <Row className="my-5">
+        <Row className="my-3">
           <Col md={10} className="d-flex flex-row-reverse">
-            <Button variant="success" type="submit" className="text-white" onClick={handleSubmit}>
+            <Button
+              variant="success"
+              type="submit"
+              className="text-white"
+              onClick={handleSubmit}>
               Submit
             </Button>
-           
           </Col>
         </Row>
       </Form>
