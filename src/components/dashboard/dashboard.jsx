@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Form, Card } from "react-bootstrap";
-import { Bar, Doughnut, Line, PolarArea } from "react-chartjs-2";
-import { Data, TotalByType, transactions } from "../../data";
+import { Bar, Doughnut, Line, PolarArea, Pie } from "react-chartjs-2";
+import { Data, TotalByType, transactions, Status } from "../../data";
 import { Chart as ChartJS } from "chart.js/auto";
 
 const Dashboard = () => {
@@ -27,7 +27,16 @@ const Dashboard = () => {
       },
     ],
   });
-
+  const [status, setStatus] = useState(Status);
+  const [someData, setSomeData] = useState({
+    datasets: [
+      {
+        label: "income",
+        data: TotalByType.map((info) => info.total),
+      },
+    ],
+  });
+  const [cardItem, setCardItem] = useState(transactions);
   return (
     <Container className="main mt-5">
       <Row>
@@ -57,27 +66,27 @@ const Dashboard = () => {
       </Row>
 
       <Row className="my-3">
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Receivables</h5>
-            <p></p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Paid</h5>
-            <p>Total amount paid by customers</p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Account balance</h5>
-            <p>T</p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
+        {cardItem.map((item) => {
+          const { name, description, amount } = item;
+          return (
+            <Col>
+              <Card className="p-3 bg-light border-light">
+                <Row>
+                  <Col md={9}>
+                    <h5>{name}</h5>
+                    <p>{description}</p>
+                    <h4>{amount}</h4>
+                  </Col>
+                  <Col md={3}>
+                    <div>
+                      <Doughnut data={someData} />
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          );
+        })}
       </Row>
       <Row>
         <Col md={6}>
@@ -117,47 +126,32 @@ const Dashboard = () => {
                 <Line data={data} />
               </div>
             </Col>
-            <Col className="my-5">
-              <div>
-                <h5>Income</h5>
-                <p>
-                  <b>¢2400</b>
-                </p>
-              </div>
-              <div>
-                <h5>Unpaid</h5>
-                <p>
-                  {" "}
-                  <b>¢2400</b>
-                </p>
-              </div>
-            </Col>
           </Row>
         </Col>
       </Row>
 
       <Row className="my-3">
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Receivables</h5>
-            <p></p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Paid</h5>
-            <p>Total amount paid by customers</p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
-        <Col className="mt-2">
-          <Card className="p-3 bg-light border-light">
-            <h5>Account balance</h5>
-            <p>T</p>
-            <h4>¢2400</h4>
-          </Card>
-        </Col>
+        {status.map((item) => {
+          const { name, description, amount } = item;
+          return (
+            <Col>
+              <Card className="p-3 bg-light border-light">
+                <Row>
+                  <Col md={9}>
+                    <h5>{name}</h5>
+                    <p>{description}</p>
+                    <h4>{amount}</h4>
+                  </Col>
+                  <Col md={3}>
+                    <div>
+                      <Doughnut data={someData} />
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          );
+        })}
       </Row>
 
       <Row className="my-5">

@@ -14,48 +14,42 @@ import { MdSubscriptions } from "react-icons/md";
 import Image from "react-bootstrap/Image";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import OffCanvas from "./offcanvas.jsx";
 
 function Sidebar() {
   const [show, setShow] = useState(false);
+  const [selected, setSelected] = useState(0);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (index) => {
+    setSelected(index);
+    setShow(true);
+  };
 
   return (
     <div className="sidebar">
       <Row>
         <Col xs={2} className="mini-section pt-5 px-2">
-          <Stack gap={4}>
-            <BiUserCircle className="icon" />
-            <BiSearchAlt2 className="icon" />
-            <GrAddCircle className="icon" />
-            <BiNotification className="icon" />
-            <AiOutlineSetting className="icon" onClick={handleShow} />
-          </Stack>
-          <Offcanvas
-            show={show}
-            onHide={handleClose}
-            scroll={true}
-            backdrop={false}
-            className="offcanvas pt-5 px-2"
+          {/* <OverlayTrigger
+            placement="left"
+            overlay={<Tooltip id="button-tooltip-2">Search</Tooltip>}
           >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>
-                <AiOutlineSetting /> Setting
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Form.Control
-                type="text"
-                placeholder="search"
-                className="my-4 search-input"
-              ></Form.Control>
-              <Link to="settings\currencies" className="nav-items mx-2 ">
-                <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
-              </Link>
-            </Offcanvas.Body>
-          </Offcanvas>
+            <BiSearchAlt2 className="icon" />
+          </OverlayTrigger> */}
+          <Stack gap={4}>
+            <BiUserCircle className="icon" onClick={() => handleShow(0)} />
+            <BiSearchAlt2 className="icon" onClick={() => handleShow(1)} />
+            <GrAddCircle className="icon" onClick={() => handleShow(2)} />
+            <BiNotification className="icon" onClick={() => handleShow(3)} />
+            <AiOutlineSetting className="icon" onClick={() => handleShow(4)} />
+          </Stack>
+          <OffCanvas
+            show={show}
+            handleClose={handleClose}
+            selected={selected}
+          />
         </Col>
+
         <Col className="large-section pt-5 px-2">
           <Stack gap={3}>
             <h3 className="companyName">Generis</h3>
