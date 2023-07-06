@@ -10,12 +10,11 @@ import { BASE_URL } from "../../constants/BASE_URL";
 import moment from "moment";
 
 const CreateSubscription = () => {
-  const [tax, setTax] = useState();
-  const [discount, setDiscount] = useState();
-
   const [recurringPeriod, setRecurringPeriod] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const field = { product: "", quantity: 0, tax: 0, discount: 0 };
+  const [formFields, setFormFields] = useState([field]);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const navigate = useNavigate();
@@ -29,6 +28,14 @@ const CreateSubscription = () => {
   const [itemId, setItemId] = useState();
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState();
+
+  const handleFormCollection = (event, position) => {
+    let existingFormData = [...formFields];
+    let { name, value } = event.target;
+
+    existingFormData[position][name] = value;
+    setFormFields(existingFormData);
+  };
 
   useEffect(() => {
     fetch("http://localhost:8080/customers")
@@ -52,32 +59,30 @@ const CreateSubscription = () => {
       });
   }, []);
 
-  
-
-
   const handleCreateSubscription = async (e) => {
     e.preventDefault();
 
     try {
-      const invoiceItems = selectedItems.map((item) => ({
-        productId: item.itemId,
+      const invoiceItems = formFields.map((item) => ({
+        productId: item.product,
         quantity: item.quantity,
       }));
-
+      console.log(formFields);
       const invoiceData = {
-  
         startDate: moment(startDate, "YYYY-MM-DD").format("DD-MM-YYYY"),
         endDate: moment(endDate, "YYYY-MM-DD").format("DD-MM-YYYY"),
         customerId: customerId,
+        tax: formFields[0].tax,
+        discount: formFields[0].discount,
+        currency: formFields[0].currency,
         items: invoiceItems,
-        tax: tax,
-        discount: discount,
+        recurringPeriod: recurringPeriod,
       };
 
       const response = await BASE_URL.post("/subscriptions", invoiceData);
 
       if (response.data.message === "Success") {
-        toast.success("Subscription created successfully", {
+        toast.success("subscription created successfully", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
         });
@@ -96,8 +101,7 @@ const CreateSubscription = () => {
   let id = 1;
 
   const [column, setColumn] = useState([
-    { id: id, product: "", quantity: "",  tax: "", discount: "" },
-    
+    { id: id, product: "", quantity: "", tax: "", discount: "" },
   ]);
 
   const addColumns = () => {
@@ -111,9 +115,9 @@ const CreateSubscription = () => {
         discount: "",
       },
     ]);
+    setFormFields([...formFields, field]);
   };
   console.log("coll ", typeof column, column, id);
-
 
   const handleItemQuantityChange = (itemId, quantity) => {
     const updatedItems = selectedItems.map((item) => {
@@ -128,7 +132,6 @@ const CreateSubscription = () => {
     setSelectedItems(updatedItems);
   };
 
-
   return (
     <Container className="main mt-5">
       <Row>
@@ -142,12 +145,15 @@ const CreateSubscription = () => {
 
           <hr />
           <Row className="my-3">
-        <Col 
-        >
-          <Button style={{float:"right"}} variant="success" onClick={addColumns}>Add product  <GrFormAdd  /></Button>
-         
-        </Col>
-      </Row>
+            <Col>
+              <Button
+                style={{ float: "right" }}
+                variant="success"
+                onClick={addColumns}>
+                Add product <GrFormAdd />
+              </Button>
+            </Col>
+          </Row>
           <Row className="mb-3">
             <Table>
               <thead>
@@ -159,20 +165,14 @@ const CreateSubscription = () => {
                 </tr>
               </thead>
               <tbody>
-                {column?.map((row) => (
+                {column?.map((row, key) => (
                   <tr key={row.id}>
                     <td>
                       {" "}
                       <Form.Control
+                        name="product"
                         as="select"
-                        onChange={(e) => {
-                          const itemId = e.target.value;
-                          const item = items.find((item) => item.id === itemId);
-                          setSelectedItems([
-                            ...selectedItems,
-                            { itemId, quantity: 0 },
-                          ]);
-                        }}
+                        onChange={(e) => handleFormCollection(e, key)}
                         required>
                         <option value="">Select a product</option>
                         {items.length > 0 &&
@@ -184,89 +184,32 @@ const CreateSubscription = () => {
                       </Form.Control>
                     </td>
                     <td>
-                    <Form.Control
-                        type="number"
-                        onChange={(e) => handleItemQuantityChange(e.target.value)}
+                      <Form.Control
+                      type="number"
+                        name="quantity"
+                        onChange={(e) => handleFormCollection(e, key)}
                         min={0}
                       />
-                      </td>
-                    <td> <Form.Control
-                        type="number"
-                        onChange={(e) => setTax(e.target.value)}
+                    </td>
+                    <td>
+                      {" "}
+                      <Form.Control
+                      type="number"
+                        name="tax"
+                        onChange={(e) => handleFormCollection(e, key)}
                         min={0}
-                      /></td>
-                    <td><Form.Control
-                        type="number"
-                        onChange={(e) => setDiscount(e.target.value)}
+                      />
+                    </td>
+                    <td>
+                      <Form.Control
+                      type="number"
+                        name="discount"
+                        onChange={(e) => handleFormCollection(e, key)}
                         min={0}
-                      /></td>
+                      />
+                    </td>
                   </tr>
                 ))}
-                {column?.map((col) => {
-                  <tr key={col.id}>
-                    <td>
-                      <Form.Control
-                        as="select"
-                        value={col.product}
-                        onChange={(e) => {
-                          const itemId = e.target.value;
-                          const item = items.find((item) => item.id === itemId);
-                          setSelectedItems([
-                            ...selectedItems,
-                            { itemId, quantity: 0 },
-                          ]);
-                        }}
-                        required>
-                        <option value="">Select a product</option>
-                        {items.length > 0 &&
-                          items.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.productName}
-                            </option>
-                          ))}
-                      </Form.Control>
-                    </td>
-
-                    <td>
-                      {selectedItems.map((selectedItem, index) => (
-                        <Row key={index}>
-                          <Col>
-                            <Form.Group
-                              controlId={`quantity-${selectedItem.id}`}>
-                              <Form.Control
-                                type="number"
-                                value={col.quantity}
-                                min="1"
-                                // value={selectedItem.quantity}
-                                onChange={(e) =>
-                                  handleItemQuantityChange(
-                                    selectedItem.itemId,
-                                    parseInt(e.target.value)
-                                  )
-                                }
-                                required
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
-                      ))}
-                    </td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        onChange={(e) => setTax(e.target.value)}
-                        min={0}
-                      />
-                    </td>
-                    <td>
-                      <Form.Control
-                        type="number"
-                        onChange={(e) => setDiscount(e.target.value)}
-                        min={0}
-                      />
-                    </td>
-                  </tr>;
-                })}
               </tbody>
             </Table>
 
@@ -274,10 +217,6 @@ const CreateSubscription = () => {
           </Row>
         </Col>
       </Row>
-
-
-     
-                
 
       <Row className="my-3">
         <Col md={10} className="mt-2">

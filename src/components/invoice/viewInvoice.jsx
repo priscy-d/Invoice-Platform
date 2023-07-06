@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Badge,
   Button,
@@ -13,14 +15,22 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 
 const CreateInvoice = () => {
+  const [viewed, setViewed] = useState(false);
+  const { state } = useLocation();
+
+  // console.log(state);
+  // const handleViewed = () => {
+  //   setViewed(true);
+  // };
+
   return (
     <Container className="main mt-5">
       <Row>
         <Col md={10}>
           <h2 className="mb-3">
-            Invoice: INV-001
+            Invoice Number: {state.invoice.invoiceNumber}
             <Badge className="mx-2 statusheight" pill text="danger" bg="light">
-              <span className="status">sent</span>
+              <span className="status"></span>
             </Badge>
           </h2>
         </Col>
@@ -46,13 +56,23 @@ const CreateInvoice = () => {
           </div>
         </Col>
       </Row>
+      {/* {!viewed ? (
+        <Row>
+          <Col>
+            <Button variant="primary" onClick={handleViewed}>
+              Mark as Viewed
+            </Button>
+          </Col>
+        </Row>
+      ) : ( */}
 
       <Row className="mb-3">
         <Col className="my-5 me-4" md={5}>
           <div className="my-4">
             <h5>Created</h5>
             <p>
-              Invoice for <b>customer</b> was created on <b>24th Mar</b>
+              Invoice for <b>{state.invoice.customerId.name}</b> was created on{""}{" "}
+              <b>{state.invoice.createdDate}</b>
             </p>
             <hr />
           </div>
@@ -60,7 +80,7 @@ const CreateInvoice = () => {
           <div className="my-4">
             <h5>Sent</h5>
             <p>
-              Last invoice sent on <b>24th Mar</b>
+              Last invoice sent on <b>{state.invoice.createdDate}</b>
             </p>
             <hr />
           </div>
@@ -68,25 +88,34 @@ const CreateInvoice = () => {
           <div className="my-4">
             <h5>Payment information</h5>
             <p>
-              Last invoice sent on <b>24th Mar</b>
+              Last invoice sent on <b>{state.invoice.createdDate}</b>
             </p>
           </div>
         </Col>
         <Col className="mb-3" md={6}>
           <Card className="in-card invoice-card">
             <Row className="mx-3 mt-5">
+
+              
               <Col>
+              <h6>Title</h6>
+                <p>{state.invoice.title}</p>
                 <h6>subtitle</h6>
+                <p>{state.invoice.subHeading}</p>
+                <br></br>
               </Col>
               <Col className="d-flex flex-row-reverse">
                 <Row>
                   <h5>
                     <b>Company</b>
                   </h5>
-                  <p>Location, city</p>
-                  <p>Ghana</p>
-                  <p>2334578654</p>
-                  <p>company@email.com</p>
+                  <p>
+                    {state.invoice.customerId.country},
+                    {state.invoice.customerId.city}
+                  </p>
+                  <p>{state.invoice.customerId.country}</p>
+                  <p>{state.invoice.customerId.phoneNumber}</p>
+                  <p>{state.invoice.customerId.email}</p>
                 </Row>
               </Col>
               <hr />
@@ -96,24 +125,30 @@ const CreateInvoice = () => {
                 <Row>
                   <h6>Bill to </h6>
                   <p>
-                    <b>Customer name</b>
+                    <b>{state.invoice.customerId.name}</b>
                   </p>
-                  <p>Location, city</p>
-                  <p>Ghana</p>
-                  <p>2334578654</p>
-                  <p>company@email.com</p>
+                  <p>
+                    {" "}
+                    {state.invoice.customerId.country},{state.invoice.customerId.city}
+                  </p>
+                  <p>{state.invoice.customerId.country}</p>
+                  <p>{state.invoice.customerId.phoneNumber}</p>
+                  <p>{state.invoice.customerId.email}</p>
                 </Row>
               </Col>
               <Col className="d-flex flex-row-reverse mt-2">
                 <Row>
                   <p>
-                    <b>Invoice Number: </b>INV-001
+                    <b>Invoice Number: </b>
+                    {state.invoice.invoiceNumber}
                   </p>
                   <p>
-                    <b>Invoice Date: </b>24-Mar-2023
+                    <b>Invoice Date: </b>
+                    {state.invoice.createdDate}
                   </p>
                   <p>
-                    <b>Due Date: </b>01-Jan-2024
+                    <b>Due Date: </b>
+                    {state.invoice.dueDate}
                   </p>
                 </Row>
               </Col>
@@ -141,21 +176,23 @@ const CreateInvoice = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <p>
-                        <b>Item name</b>
-                      </p>
-                      <p>It's description</p>
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {" "}
-                      <p>5</p>
-                    </td>
-                  </tr>
+                  {state.invoice.items?.map((item, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p>
+                          <b>{item.productId.productName}</b>
+                        </p>
+                        <p>{item.description}</p>
+                      </td>
+                      <td>
+                        <p>{item.quantity}</p>
+                      </td>
+                      <td>
+                        {" "}
+                        <p>{state.invoice.customerId.currency.currencyCode} {item.productId.unitPrice}</p>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
 
@@ -174,10 +211,10 @@ const CreateInvoice = () => {
                   <tbody>
                     <tr>
                       <td>
-                        <p>500</p>
+                        <p>{state.invoice.customerId.currency.currencyCode} {state.invoice.subTotal}</p>
                       </td>
                       <td>
-                        <p>600</p>
+                        <p>{state.invoice.customerId.currency.currencyCode} {state.invoice.totalAmount}</p>
                       </td>
                     </tr>
                   </tbody>

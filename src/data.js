@@ -98,10 +98,29 @@ export const currencyOptions = [
   { value: "USA", label: "USD" },
 ];
 
-export const transactions =[
-  {name:"Recievables", description:"Amount yet to be paid by customers", amount:2400},
-  {name:"Paid", description:"Total amount paid by customers", amount:2400},
-  {name:"Accont balance", description:"Total amount in bank account", amount:2400}
-
-
-]
+export const transactions = [
+  {
+    name: "Receivables",
+    description: "Amount yet to be paid by customers",
+    amount: 2400,
+  },
+  { name: "Paid", description: "Total amount paid by customers", amount: 2400 },
+  {
+    name: "Account balance",
+    description: "Total amount in bank account",
+    amount: 2400,
+  },
+];
+export const Status = [
+  {
+    name: "Sent",
+    description: "Amount yet to be paid by customers",
+    amount: 2400,
+  },
+  { name: "Paid", description: "Total amount paid by customers", amount: 2400 },
+  {
+    name: "Overdue",
+    description: "Total amount in bank account",
+    amount: 2400,
+  },
+];

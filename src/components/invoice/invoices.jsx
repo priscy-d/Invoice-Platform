@@ -114,7 +114,7 @@ const Invoices = () => {
             <tr
               key={invoice.id}
               onClick={() =>
-                navigate("/invoice-platform/invoices/view-invoice")
+                navigate("/invoice-platform/invoices/view-invoice", {state:{invoice}})
               }>
               <td>
                 <MaterialCheckbox size="small" />

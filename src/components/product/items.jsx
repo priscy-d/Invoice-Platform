@@ -126,7 +126,7 @@ const Items = () => {
                   setShowAction(true);
                   localStorage.setItem("productId", product.id);
                 }}>
-                {product.unitPrice} {showAction ? action() : null}
+              {product.unitPrice} {showAction ? action() : null}
               </td>
             </tr>
           ))}
