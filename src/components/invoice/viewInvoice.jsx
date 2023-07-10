@@ -19,7 +19,7 @@ const CreateInvoice = () => {
         <Col md={10}>
           <h2 className="mb-3">
             Invoice: INV-001
-            <Badge className="mx-2 statusheight" pill text="danger" bg="light">
+            <Badge className="mx-2 badge_" pill text="danger" bg="light">
               <span className="status">sent</span>
             </Badge>
           </h2>
@@ -32,9 +32,9 @@ const CreateInvoice = () => {
           </div>
           <div>
             <Dropdown>
-              <Dropdown.Toggle variant="light" id="dropdown-basic">
+              <Button variant="light">
                 <BsThreeDots roundedCircle />
-              </Dropdown.Toggle>
+              </Button>
 
               <Dropdown.Menu>
                 <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>

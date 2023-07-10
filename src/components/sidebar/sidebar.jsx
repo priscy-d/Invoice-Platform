@@ -74,21 +74,6 @@ function Sidebar() {
           </Stack>
         </Col>
       </Row>
-      <Row>
-        <Col xs={2}></Col>
-        <Col>
-          {" "}
-          <Offcanvas className="sidebar" show={show} onHide={handleClose}>
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              Some text as placeholder. In real life you can have the elements
-              you have ch osen. Like, text, images, lists, etc.
-            </Offcanvas.Body>
-          </Offcanvas>
-        </Col>
-      </Row>
     </div>
   );
 }

@@ -18,7 +18,7 @@ $font_sizes: (
   "sub-header": 30px,
   "small": 24px,
   "normal_text": 14px,
-  "extra_small": 10px,
+  "extra_small": 12px,
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
@@ -111,9 +111,11 @@ h1 {
 .status {
   font-size: map-get($font_sizes, extra_small);
 }
-.statusheight {
-  height: fit-content;
-  background-color: #cab4e7;
+.badge_ {
+
+  background-color: "#44b700";
+  color: "#44b700"; 
+ 
 }
 .invoice-card p {
   font-size: map-get($font_sizes, extra_small);
