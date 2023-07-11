@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Badge,
   Button,
   Col,
   Container,
   Row,
-  Form,
   Card,
   Dropdown,
   Table,
+  DropdownButton,
 } from "react-bootstrap";
 import { BsThreeDots } from "react-icons/bs";
+import ConfirmAction from "./confirmaction";
 
 const CreateInvoice = () => {
+  const [action, setAction] = useState(false);
+
+  const handleShow = () => setAction(true);
   return (
     <Container className="main mt-5">
+      <ConfirmAction action={action} setAction={setAction} />
       <Row>
         <Col md={10}>
           <h2 className="mb-3">
@@ -31,18 +36,17 @@ const CreateInvoice = () => {
             </Button>
           </div>
           <div>
-            <Dropdown>
-              <Button variant="light">
-                <BsThreeDots roundedCircle />
-              </Button>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <DropdownButton
+              title={<BsThreeDots roundedCircle />}
+              variant="light"
+            >
+              <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
+              <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="4" onclick={handleShow}>
+                Delete
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </Col>
       </Row>

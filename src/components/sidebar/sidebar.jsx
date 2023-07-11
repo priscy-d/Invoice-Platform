@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Stack, Button, Offcanvas, Form } from "react-bootstrap";
-import { BiUserCircle, BiNotification, BiSearchAlt2 } from "react-icons/bi";
-import { AiOutlineSetting, AiOutlineDashboard } from "react-icons/ai";
-import { FaFileInvoice } from "react-icons/fa";
-import {
-  BsArchive,
-  BsFillPersonPlusFill,
-  BsCurrencyDollar,
-} from "react-icons/bs";
-import { GrAddCircle } from "react-icons/gr";
-import { MdSubscriptions } from "react-icons/md";
-import Image from "react-bootstrap/Image";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import { Col, Row, Stack } from "react-bootstrap";
+import { BiUserCircle, BiNotification } from "react-icons/bi";
+import { AiOutlineSetting } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
+import { IoMdAdd } from "react-icons/io";
+import { MdSubscriptions, MdDashboard } from "react-icons/md";
+import { FaFileInvoiceDollar, FaOpencart } from "react-icons/fa";
+
 import OffCanvas from "./offcanvas.jsx";
 
 function Sidebar() {
@@ -38,10 +32,10 @@ function Sidebar() {
           </OverlayTrigger> */}
           <Stack gap={4}>
             <BiUserCircle className="icon" onClick={() => handleShow(0)} />
-            <BiSearchAlt2 className="icon" onClick={() => handleShow(1)} />
-            <GrAddCircle className="icon" onClick={() => handleShow(2)} />
-            <BiNotification className="icon" onClick={() => handleShow(3)} />
-            <AiOutlineSetting className="icon" onClick={() => handleShow(4)} />
+
+            <IoMdAdd className="icon" onClick={() => handleShow(1)} />
+            <BiNotification className="icon" onClick={() => handleShow(2)} />
+            <AiOutlineSetting className="icon" onClick={() => handleShow(3)} />
           </Stack>
           <OffCanvas
             show={show}
@@ -57,16 +51,16 @@ function Sidebar() {
               Hi, <b>User</b>
             </h6>
             <Link to="dashboard" className="nav-items mx-2 ">
-              <AiOutlineDashboard /> <p className="mx-2 text">Dashboard</p>
+              <MdDashboard /> <p className="mx-2 text">Dashboard</p>
             </Link>
             <Link to="invoices" className="nav-items mx-2 ">
-              <FaFileInvoice /> <p className="mx-2 text">Invoices</p>
+              <FaFileInvoiceDollar /> <p className="mx-2 text">Invoices</p>
             </Link>
             <Link to="products" className="nav-items mx-2 ">
-              <BsArchive /> <p className="mx-2 text">Products</p>
+              <FaOpencart /> <p className="mx-2 text">Products</p>
             </Link>
             <Link to="customers" className="nav-items mx-2 ">
-              <BsFillPersonPlusFill /> <p className="mx-2 text">Customers</p>
+              <BsFillPersonFill /> <p className="mx-2 text">Customers</p>
             </Link>
             <Link to="subscriptions" className="nav-items mx-2 ">
               <MdSubscriptions /> <p className="mx-2 text">Subscriptions</p>

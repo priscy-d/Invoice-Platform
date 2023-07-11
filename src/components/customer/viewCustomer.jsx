@@ -10,6 +10,7 @@ const ViewCustomer = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [action, setAction] = useState(false);
+
   const handleShow = () => setShow(true);
   const handleAction = () => setAction(true);
 
@@ -17,6 +18,7 @@ const ViewCustomer = () => {
     <Container className="main mt-5">
       <EditCustomerModal show={show} setShow={setShow} />
       <CustomerStatementModal action={action} setAction={setAction} />
+
       <Row>
         <Col md={10}>
           <h2 className="mb-3">Priscy</h2>
@@ -28,14 +30,16 @@ const ViewCustomer = () => {
               className="text-white"
               onClick={() =>
                 navigate("/invoice-platform/invoices/create-invoice")
-              }>
+              }
+            >
               New Invoice
             </Button>
           </div>
           <div>
             <DropdownButton
               title={<BsThreeDots roundedCircle />}
-              variant="light">
+              variant="light"
+            >
               <Dropdown.Item eventKey="2" onClick={handleAction}>
                 Customer statement
               </Dropdown.Item>
@@ -51,14 +55,14 @@ const ViewCustomer = () => {
 
       <Row className="mb-3">
         <Col className="my-5 me-4 content" md={4}>
-          <div className="my-4">
+          <div className="my-5">
             <h5>Created</h5>
             <p>
               <b>Priscy</b> was created on <b>24th Mar</b>
             </p>
           </div>
 
-          <div className="my-4 ">
+          <div className="mt-5 ">
             <h5>Address</h5>
             <p>Location, city</p>
             <p>Ghana</p>
@@ -81,54 +85,58 @@ const ViewCustomer = () => {
               <p>draft</p>
             </Col>
           </Row>
-
-          <div className="verticalline">
-            <div className="mx-2 my-3">
-              <h6>Invoices</h6>
-            </div>
-            <Table hover bordered size="sm" className="mx-2 my-3">
-              <thead className="content">
-                <tr>
-                  <th>
-                    <p>
-                      <b>Due date</b>
-                    </p>
-                  </th>
-                  <th>
-                    <p>
-                      <b>Status</b>
-                    </p>
-                  </th>
-                  <th>
-                    <p>
-                      <b>Type</b>
-                    </p>
-                  </th>
-                  <th>
-                    <p>
-                      <b>Amount</b>
-                    </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <p>18 May 2023</p>
-                  </td>
-                  <td>
-                    <p>Sent</p>
-                  </td>
-                  <td>
-                    <p>Subscription</p>
-                  </td>
-                  <td>
-                    <p>¢2400</p>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
+          <Row>
+            <Col md={1}>
+              <div className="verticalline"> </div>
+            </Col>
+            <Col md={11}>
+              <div>
+                <h6 className="mx-2 my-3">Invoices</h6>
+              </div>
+              <Table hover bordered size="sm" className="mx-2 my-3">
+                <thead>
+                  <tr>
+                    <th>
+                      <p>
+                        <b>Due date</b>
+                      </p>
+                    </th>
+                    <th>
+                      <p>
+                        <b>Status</b>
+                      </p>
+                    </th>
+                    <th>
+                      <p>
+                        <b>Type</b>
+                      </p>
+                    </th>
+                    <th>
+                      <p>
+                        <b>Amount</b>
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>18 May 2023</p>
+                    </td>
+                    <td>
+                      <p>Sent</p>
+                    </td>
+                    <td>
+                      <p>Subscription</p>
+                    </td>
+                    <td>
+                      <p>¢2400</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
