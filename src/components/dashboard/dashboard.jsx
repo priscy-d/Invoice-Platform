@@ -6,6 +6,24 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { init } from "../../Keycloak";
 
 const Dashboard = () => {
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    const fetchCurrentDate = () => {
+      const date = new Date();
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const formattedDate = date.toLocaleDateString(undefined, options);
+      setCurrentDate(formattedDate);
+    };
+
+    fetchCurrentDate();
+  }, []);
+
   const [data, setData] = useState({
     labels: Data.map((info) => info.month),
     datasets: [
@@ -53,7 +71,7 @@ const Dashboard = () => {
         </Col>
         <Col>
           <Form.Group>
-            <div className="d-flex flex-row">
+            {/* <div className="d-flex flex-row">
               <Form.Control
                 className=" me-2"
                 type="date"
@@ -64,11 +82,15 @@ const Dashboard = () => {
 
               <Form.Control
                 type="date"
-                placeholder="end date"
+                placeholder={currentDate}
                 size="sm"
                 id="date"
+                
               />
-            </div>
+            </div> */}
+            
+
+            {currentDate}
           </Form.Group>
         </Col>
       </Row>

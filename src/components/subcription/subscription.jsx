@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import MaterialCheckbox from "@mui/material/Checkbox";
 import Pagination from "../pagination";
 
-
 const Subscription = () => {
   const navigate = useNavigate();
 
@@ -52,11 +51,13 @@ const Subscription = () => {
       const startDate = subscription.startDate
         ? subscription.startDate.toLowerCase()
         : "";
-      const endDate = subscription.endDate ? subscription.endDate.toLowerCase() : "";
+      const endDate = subscription.endDate
+        ? subscription.endDate.toLowerCase()
+        : "";
       const customerName = subscription.customerId
         ? subscription.customerId.name.toLowerCase()
         : "";
-  
+
       return (
         items.some((itemName) => itemName.includes(query.toLowerCase())) ||
         subscriptionsNumber.includes(query.toLowerCase()) ||
@@ -67,16 +68,14 @@ const Subscription = () => {
     });
     setFilteredSubscriptions(filtered);
   };
-  
+
   useEffect(() => {
     setFilteredSubscriptions(subscriptions || []);
   }, [subscriptions]);
-  
-  
+
   useEffect(() => {
     setFilteredSubscriptions(subscriptions || []);
   }, [subscriptions]);
-  
 
   const handleSubmit = () => {
     navigate("/invoice-platform/subscriptions/create-subscription");
@@ -105,40 +104,42 @@ const Subscription = () => {
             <th>
               <MaterialCheckbox size="small" />
             </th>
-            <th>Customer</th>
+            <th> subscriptions Number</th>
             <th>Items</th>
-            <th>subscriptions Number</th>
+            <th>Customer</th>
             <th>Start Date</th>
             <th>End Date</th>
           </tr>
         </thead>
         <tbody>
-  {data?.map((subscription) => (
-    <tr key={subscription.id}>
-      <td>
-        <MaterialCheckbox size="small" />
-      </td>
-      <td
-        onClick={() =>
-          navigate("/invoice-platform/subscriptions/view-subscription")
-        }
-      >
-        {subscription.customerId.name}
-      </td>
-      <td>
-        {subscription.items.map((item, index) => (
-          <React.Fragment key={item.productId.id}>
-            {item.productId.productName}
-            {index !== subscription.items.length - 1 && ", "}
-          </React.Fragment>
-        ))}
-      </td>
-      <td>{subscription.subscriptionNumber}</td>
-      <td>{subscription.startDate}</td>
-      <td>{subscription.endDate}</td>
-    </tr>
-  ))}
-</tbody>
+          {data?.map((subscription) => (
+            <tr key={subscription.id}>
+              <td>
+                <MaterialCheckbox size="small" />
+              </td>
+              <td
+                onClick={() =>
+                  navigate(
+                    "/invoice-platform/subscriptions/view-subscription",
+                    { state: { subscription } }
+                  )
+                }>
+                {subscription.subscriptionNumber}
+              </td>
+              <td>
+                {subscription.items.map((item, index) => (
+                  <React.Fragment key={item.productId.id}>
+                    {item.productId.productName}
+                    {index !== subscription.items.length - 1 && ", "}
+                  </React.Fragment>
+                ))}
+              </td>
+              <td> {subscription.customerId.name}</td>
+              <td>{subscription.startDate}</td>
+              <td>{subscription.endDate}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
 
       <Pagination

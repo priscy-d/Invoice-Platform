@@ -15,10 +15,9 @@ const Items = () => {
     navigate("/invoice-platform/products/create-product");
   };
 
-  const [products, setProducts] = useState([]);
+const getAllProducts =async ()=>{
 
-  useEffect(() => {
-    fetch("http://localhost:8080/products")
+  fetch("http://localhost:8080/products")
       .then((response) => response.json())
       .then((data) => {
         const sortedProducts = data?.data.sort((a, b) => {
@@ -29,7 +28,13 @@ const Items = () => {
       .catch((error) => {
         console.log("Error:", error);
       });
-  });
+}
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getAllProducts()
+   
+  },[]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -53,27 +58,38 @@ const Items = () => {
     );
   };
 
+ 
+
   const handleSearchChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
+  };
+  
+  useEffect(() => {
     const filtered = products.filter(
       (product) =>
         (product.productName &&
-          product.productName.toLowerCase().includes(query.toLowerCase())) ||
+          product.productName.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (product.productState &&
-          product.productState.toLowerCase().includes(query.toLowerCase())) ||
-        (product.description &&
-          product.description.toLowerCase().includes(query.toLowerCase())) ||
-        (product.idNumber &&
-          product.idNumber.toLowerCase().includes(query.toLowerCase()))
+          product.productState.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (product.unitPrice &&
+          product.unitPrice.toString().includes(searchQuery.toLowerCase()))
     );
     setFilteredProducts(filtered);
-  };
-
+  }, [products, searchQuery]);
+  
   useEffect(() => {
-    setFilteredProducts(products || []);
+    if (!products) {
+      setFilteredProducts([]);
+    }
   }, [products]);
+  
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, []);
+  
 
+  
   return (
     <Container className="mt-5">
       <DeleteProductModal show={deleteModal} setShow={setDeleteModal} />

@@ -3,8 +3,11 @@ import { Button, Col, Container, Row, Table, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../pagination";
 import MaterialCheckbox from "@mui/material/Checkbox";
+import DeleteCustomerModal from "./deleteCustomerModal";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const Customers = () => {
+  const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
 
   // "http://localhost:8080/customers"
@@ -61,8 +64,23 @@ const Customers = () => {
     setFilteredCustomers(customers || []);
   }, [customers]);
 
+
+  const [showAction, setShowAction] = useState(false);
+  const action = () => {
+    return (
+      <Button
+        onClick={() => setDeleteModal(true)}
+        variant="danger"
+        style={{ float: "right" }}>
+        <AiOutlineDelete />
+      </Button>
+    );
+  };
+
+  
   return (
     <Container className="mt-5">
+       <DeleteCustomerModal show={deleteModal} setShow={setDeleteModal} />
       <Row>
         <Col md={10}>
           <h2>Customers</h2>
@@ -117,7 +135,10 @@ const Customers = () => {
                 {customer.country}: {customer.city}
               </td>
 
-              <td>{customer.accountInfo}</td>
+              <td onMouseEnter={() => {
+                  setShowAction(true);
+                  localStorage.setItem("customerId", customer.id);
+                }}>{customer.accountInfo} {showAction ? action() : null}</td>
             </tr>
           ))}
         </tbody>

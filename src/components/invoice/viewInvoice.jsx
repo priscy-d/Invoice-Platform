@@ -30,7 +30,7 @@ const CreateInvoice = () => {
           <h2 className="mb-3">
             Invoice Number: {state.invoice.invoiceNumber}
             <Badge className="mx-2 statusheight" pill text="danger" bg="light">
-              <span className="status"></span>
+              <span className="status">{state.invoice.status}</span>
             </Badge>
           </h2>
         </Col>
