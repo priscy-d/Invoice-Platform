@@ -1,23 +1,27 @@
-import React from "react";
-import {
-  Badge,
-  Button,
-  Col,
-  Container,
-  Row,
-  Form,
-  Card,
-  Dropdown,
-  Table,
-} from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Col, Container, Row, Dropdown, Table } from "react-bootstrap";
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import EditCustomerModal from "./editcustomerModal";
+import CustomerStatementModal from "./customerStatementModal";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import DeleteCustomerModal from "./deleteCustomerModal";
 
 const ViewCustomer = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [action, setAction] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleAction = () => setAction(true);
+  const handleDelete= () => setDeleteModal(true);
+
 
   return (
     <Container className="main mt-5">
+      <EditCustomerModal show={show} setShow={setShow} />
+      <CustomerStatementModal action={action} setAction={setAction} />
+      <DeleteCustomerModal show={deleteModal} setShow={setDeleteModal} />
       <Row>
         <Col md={10}>
           <h2 className="mb-3">Priscy</h2>
@@ -34,18 +38,18 @@ const ViewCustomer = () => {
             </Button>
           </div>
           <div>
-            <Dropdown>
-              <Dropdown.Toggle variant="light" id="dropdown-basic">
-                <BsThreeDots roundedCircle />
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="2">Customer statement</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Edit</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <DropdownButton
+              title={<BsThreeDots roundedCircle />}
+              variant="light">
+              <Dropdown.Item eventKey="2" onClick={handleAction}>
+                Customer statement
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="3" onClick={handleShow}>
+                Edit
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="4" onClick={handleDelete}>Delete</Dropdown.Item>
+            </DropdownButton>
           </div>
         </Col>
       </Row>

@@ -112,9 +112,11 @@ h1 {
 .status {
   font-size: map-get($font_sizes, extra_small);
 }
-.statusheight {
-  height: fit-content;
-  background-color: #cab4e7;
+.badge_ {
+
+  background-color: "#44b700";
+  color: "#44b700"; 
+ 
 }
 .invoice-card p {
   font-size: map-get($font_sizes, extra_small);

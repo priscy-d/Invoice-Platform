@@ -125,7 +125,10 @@ const Customers = () => {
         </thead>
         <tbody>
           {data?.map((customer) => (
-            <tr key={customer.id}>
+            <tr key={customer.id} onClick={() =>
+              navigate("/invoice-platform/customers/view-customer")
+            }
+            >
               <td>
               <MaterialCheckbox size="small" />
             </td>

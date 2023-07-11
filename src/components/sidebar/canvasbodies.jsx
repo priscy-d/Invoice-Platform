@@ -1,10 +1,8 @@
 import { Offcanvas, Form, Stack } from "react-bootstrap";
-import {
-  AiOutlineSetting,
-  AiOutlineEdit,
-  AiOutlineLogout,
-} from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineLogout, AiOutlineMail } from "react-icons/ai";
 import { BsCurrencyDollar } from "react-icons/bs";
+import { HiReceiptTax } from "react-icons/hi";
+// import { BiSolidInstitution } from "react-icons/";
 import { Link } from "react-router-dom";
 
 function Profile() {
@@ -29,7 +27,16 @@ function Settings() {
           <BsCurrencyDollar /> <p className="mx-2 text">Currency</p>
         </Link>
         <Link to="settings\currencies" className="nav-items mx-2 ">
-          <BsCurrencyDollar /> <p className="mx-2 text">Email Templates</p>
+          <AiOutlineMail /> <p className="mx-2 text">Email configuration</p>
+        </Link>
+        <Link to="settings\currencies" className="nav-items mx-2 ">
+          <AiOutlineMail /> <p className="mx-2 text">Company </p>
+        </Link>
+        <Link to="settings\currencies" className="nav-items mx-2 ">
+          <BsCurrencyDollar /> <p className="mx-2 text">Operation countries</p>
+        </Link>
+        <Link to="settings\currencies" className="nav-items mx-2 ">
+          <HiReceiptTax /> <p className="mx-2 text">Configure taxes</p>
         </Link>
       </Stack>
     </Offcanvas.Body>
@@ -48,8 +55,7 @@ function Search() {
       <Form.Control
         type="text"
         placeholder="search"
-        className="my-4 search-input"
-      ></Form.Control>
+        className="my-4 search-input"></Form.Control>
     </Offcanvas.Body>
   );
 }
@@ -59,26 +65,22 @@ function CreateNew() {
       <Stack>
         <Link
           to="/invoice-platform/invoices/create-invoice"
-          className="nav-items mx-2 "
-        >
+          className="nav-items mx-2 ">
           <BsCurrencyDollar /> <p className="mx-2 text">Invoice</p>
         </Link>
         <Link
           to="/invoice-platform/subscriptions/create-subscription"
-          className="nav-items mx-2 "
-        >
+          className="nav-items mx-2 ">
           <BsCurrencyDollar /> <p className="mx-2 text">Subscription</p>
         </Link>
         <Link
           to="/invoice-platform/products/create-product"
-          className="nav-items mx-2 "
-        >
+          className="nav-items mx-2 ">
           <BsCurrencyDollar /> <p className="mx-2 text">Product</p>
         </Link>
         <Link
           to="/invoice-platform/customers/create-customer"
-          className="nav-items mx-2 "
-        >
+          className="nav-items mx-2 ">
           <BsCurrencyDollar /> <p className="mx-2 text">Customer</p>
         </Link>
       </Stack>

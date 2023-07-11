@@ -42,9 +42,9 @@ const CreateInvoice = () => {
           </div>
           <div>
             <Dropdown>
-              <Dropdown.Toggle variant="light" id="dropdown-basic">
+              <Button variant="light">
                 <BsThreeDots roundedCircle />
-              </Dropdown.Toggle>
+              </Button>
 
               <Dropdown.Menu>
                 <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
