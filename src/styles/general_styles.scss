@@ -112,11 +112,9 @@ h1 {
 .status {
   font-size: map-get($font_sizes, extra_small);
 }
-.badge_ {
-
-  background-color: "#44b700";
-  color: "#44b700"; 
- 
+.statusheight {
+  height: fit-content;
+  background-color: #cab4e7;
 }
 .invoice-card p {
   font-size: map-get($font_sizes, extra_small);
@@ -128,7 +126,7 @@ h1 {
 }
 .content p {
   line-height: 0;
-  font-size: 12px;
+  font-size: map-get($font_sizes, normal_text);
 }
 .companyname {
   font-size: map-get($font_sizes, sub-header);
@@ -138,4 +136,7 @@ h1 {
 .offcanvas {
   width: 16.67% !important;
   background-color: $background_color;
+}
+.tablehead{
+  background-color: $dark;
 }

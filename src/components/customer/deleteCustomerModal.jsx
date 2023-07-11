@@ -53,7 +53,7 @@ export default function DeleteCustomerModal({ show, setShow }) {
           className=" w-50"
           variant="danger"
           onClick={handleDelete}>
-          YES
+         Continue
         </Button>
       </Modal.Body>
     </Modal>

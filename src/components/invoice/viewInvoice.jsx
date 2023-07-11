@@ -7,15 +7,18 @@ import {
   Col,
   Container,
   Row,
-  Form,
   Card,
   Dropdown,
   Table,
+  DropdownButton,
 } from "react-bootstrap";
 import { BsThreeDots } from "react-icons/bs";
+import ConfirmAction from "./confirmaction";
 
 const CreateInvoice = () => {
   const [viewed, setViewed] = useState(false);
+  const [action, setAction] = useState(false);
+  const handleAction = () => setAction(true);
   const { state } = useLocation();
 
   // console.log(state);
@@ -23,8 +26,12 @@ const CreateInvoice = () => {
   //   setViewed(true);
   // };
 
+ 
+
+  
   return (
     <Container className="main mt-5">
+      <ConfirmAction show={action} setShow={setAction} />
       <Row>
         <Col md={10}>
           <h2 className="mb-3">
@@ -41,18 +48,17 @@ const CreateInvoice = () => {
             </Button>
           </div>
           <div>
-            <Dropdown>
-              <Button variant="light">
-                <BsThreeDots roundedCircle />
-              </Button>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <DropdownButton
+              title={<BsThreeDots roundedCircle />}
+              variant="light"
+            >
+              <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
+              <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="4" onClick={handleAction}>
+                Delete
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </Col>
       </Row>
@@ -98,9 +104,8 @@ const CreateInvoice = () => {
 
               
               <Col>
-              <h6>Title</h6>
-                <p>{state.invoice.title}</p>
-                <h6>subtitle</h6>
+              <h6>{state.invoice.title}</h6>
+                
                 <p>{state.invoice.subHeading}</p>
                 <br></br>
               </Col>

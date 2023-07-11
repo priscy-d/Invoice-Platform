@@ -23,7 +23,13 @@ const CreateInvoice = (props) => {
   const [customers, setCustomers] = useState([]);
   const [items, setItems] = useState([]);
   const [currencies, setCurrencies] = useState([]);
-  const field = { product: "", quantity: 0, currency: "GHS", tax: 0, discount: 0 };
+  const field = {
+    product: "",
+    quantity: 0,
+    currency: "GHS",
+    tax: 0,
+    discount: 0,
+  };
   const [formFields, setFormFields] = useState([field]);
   const [title, setTitle] = useState("");
   const [subHeading, setSubHeading] = useState("");
@@ -78,7 +84,6 @@ const CreateInvoice = (props) => {
     return "";
   };
 
-
   const handleCreateInvoice = async (e) => {
     e.preventDefault();
 
@@ -91,12 +96,12 @@ const CreateInvoice = (props) => {
       const invoiceData = {
         dueDate: moment(dueDate, "YYYY-MM-DD").format("DD-MM-YYYY"),
         customerId: customerId,
-        title:title,
-        subHeading:subHeading,
+        title: title,
+        subHeading: subHeading,
         tax: formFields[0].tax,
-        discount:formFields[0].discount,
-        currency:formFields[0].currency,
-        items:invoiceItems
+        discount: formFields[0].discount,
+        currency: formFields[0].currency,
+        items: invoiceItems,
       };
 
       const response = await BASE_URL.post("/invoices", invoiceData);
@@ -230,13 +235,14 @@ const CreateInvoice = (props) => {
           <h5>Product information</h5>
 
           <hr />
-          <Row className="my-3">
-            <Col md={10} className=" d-flex flex-row-reverse">
-              <Button variant="success" onClick={addColumns}>
-                Add product <GrFormAdd />
-              </Button>
-            </Col>
-          </Row>
+          <Row>
+                  <Col md={12} className=" my-3 d-flex flex-row-reverse">
+                    <Button variant="light" onClick={addColumns}>
+                      Add product <GrFormAdd />
+                    </Button>
+                  </Col>
+                </Row>
+
           <Row className="mb-3">
             <Table>
               <thead>
@@ -313,15 +319,15 @@ const CreateInvoice = (props) => {
                     </td>
                   </tr>
                 ))}
+               
               </tbody>
+              
             </Table>
-
-            <Col md={2} className="d-flex justify-content-end"></Col>
           </Row>
         </Col>
       </Row>
 
-      <Row className="my-3">
+      <Row >
         <Col md={10} className="d-flex flex-row-reverse">
           <Button
             variant="success"

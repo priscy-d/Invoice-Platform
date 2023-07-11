@@ -1,11 +1,9 @@
 import React from "react";
 import {
-  Badge,
   Button,
   Col,
   Container,
   Row,
-  Form,
   Card,
   Dropdown,
   Table,
@@ -13,6 +11,7 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const ViewSubscription = () => {
   const navigate = useNavigate();
@@ -37,18 +36,19 @@ const ViewSubscription = () => {
             </Button>
           </div>
           <div>
-            <Dropdown>
-              <Button variant="light">
-                <BsThreeDots roundedCircle />
-              </Button>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="2">Customer statement</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Edit</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <DropdownButton
+              title={<BsThreeDots roundedCircle />}
+              variant="light"
+            >
+              <Dropdown.Item eventKey="2">
+                Update subscription status
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="3">Edit</Dropdown.Item>
+              <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
+              <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
+            </DropdownButton>
           </div>
         </Col>
       </Row>
@@ -127,8 +127,8 @@ const ViewSubscription = () => {
 
             <Row className="mx-3 my-4 ">
               <Table>
-                <thead className="bg-dark text-white">
-                  <tr>
+                <thead >
+                  <tr className="tablehead text-white">
                     <td>
                       <p>
                         <b>Item</b>

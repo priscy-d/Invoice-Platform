@@ -148,7 +148,7 @@ const CreateSubscription = () => {
             <Col>
               <Button
                 style={{ float: "right" }}
-                variant="success"
+                variant="light"
                 onClick={addColumns}>
                 Add product <GrFormAdd />
               </Button>

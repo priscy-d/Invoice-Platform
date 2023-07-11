@@ -5,7 +5,7 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import componentArray from "./canvasbodies.jsx";
 
-const titles = ["Profile", "Search", "Create New", "Notifications", "Settings"];
+const titles = ["Profile", "Create New", "Notifications", "Settings"];
 
 function OffCanvas({ handleClose, show, selected }) {
   return (
