@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -11,12 +11,21 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import UpdateSubscriptionStatus from "./updateSubscriptionstatus";
+import SubscriptionStatementModal from "./subscriptionstatementmodal";
 
 const ViewSubscription = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [action, setAction] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleAction = () => setAction(true);
 
   return (
     <Container className="main mt-5">
+      <UpdateSubscriptionStatus show={show} setShow={setShow} />
+      <SubscriptionStatementModal action={action} setAction={setAction} />
       <Row>
         <Col md={9}>
           <h2 className="mb-3">Subscription:SUB-001</h2>
@@ -38,14 +47,14 @@ const ViewSubscription = () => {
               title={<BsThreeDots roundedCircle />}
               variant="light"
             >
-              <Dropdown.Item eventKey="2">
+              <Dropdown.Item eventKey="2" onClick={handleShow}>
                 Update subscription status
               </Dropdown.Item>
-              <Dropdown.Item eventKey="3">Edit</Dropdown.Item>
+              <Dropdown.Item eventKey="3" onClick={handleAction}>
+                Subscription statement
+              </Dropdown.Item>
               <Dropdown.Item eventKey="2">Download as PDf</Dropdown.Item>
               <Dropdown.Item eventKey="3">Send Email</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="4">Delete</Dropdown.Item>
             </DropdownButton>
           </div>
         </Col>

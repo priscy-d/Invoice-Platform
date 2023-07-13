@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Alert, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-const CustomerStatementModal = ({ action, setAction }) => {
+const SubscriptionStatementModal = ({ action, setAction }) => {
   const handleClose = () => setAction(false);
   return (
     <Modal
@@ -15,7 +15,7 @@ const CustomerStatementModal = ({ action, setAction }) => {
       <Modal.Header closeButton>
         <Row>
           <Col>
-            <h2 className="mb-3"> Customer Statement</h2>
+            <h2 className="mb-3"> Supscription Statement</h2>
           </Col>
         </Row>
       </Modal.Header>
@@ -35,4 +35,4 @@ const CustomerStatementModal = ({ action, setAction }) => {
   );
 };
 
-export default CustomerStatementModal;
+export default SubscriptionStatementModal;

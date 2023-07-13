@@ -1,5 +1,10 @@
 import { Offcanvas, Stack } from "react-bootstrap";
-import { AiOutlineEdit, AiOutlineLogout, AiOutlineMail } from "react-icons/ai";
+import {
+  AiOutlineEdit,
+  AiOutlineLogout,
+  AiOutlineMail,
+  AiOutlineFileSync,
+} from "react-icons/ai";
 import { BsCurrencyDollar, BsFillPersonFill } from "react-icons/bs";
 import { HiReceiptTax } from "react-icons/hi";
 import { FaFileInvoiceDollar, FaOpencart } from "react-icons/fa";
@@ -39,6 +44,9 @@ function Settings() {
         </Link>
         <Link to="settings\currencies" className="nav-items mx-2 ">
           <HiReceiptTax /> <p className="mx-2 text">Configure taxes</p>
+        </Link>
+        <Link to="settings\currencies" className="nav-items mx-2 ">
+          <AiOutlineFileSync /> <p className="mx-2 text">Active Log</p>
         </Link>
       </Stack>
     </Offcanvas.Body>
